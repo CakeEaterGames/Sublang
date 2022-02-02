@@ -1,4 +1,5 @@
 ﻿
+//Equivalent to out = addr[offset]
 function geti(addr, offset, out)
 {
 	!var getiTemp 0
@@ -21,7 +22,7 @@ function geti(addr, offset, out)
 	skip:
 }
 
-
+//Equivalent to addr[offset] = val
 function seti(addr, offset, val)
 {
 	!var setiTemp 0
@@ -50,4 +51,24 @@ function seti(addr, offset, val)
 	jump(skip)
 		default_val: addr,
 	skip:
+}
+
+function push(stack,val)
+{
+	//stack is: curLen val val val
+	inc(stack)
+	seti(stack,stack,val)
+}
+function pop(stack,val)
+{
+	geti(stack,stack,val)
+	dec(stack)
+}
+function push(val)
+{
+	push(_stack,val)
+}
+function pop(val)
+{
+	pop(_stack,val)
 }

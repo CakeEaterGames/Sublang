@@ -5,91 +5,205 @@ function jump(a)
     zero, zero, a
 }
 
+function jeq0(a,label)
+{
+	!var jtemp 0
+	!var n1 -1
+
+	clear(jtemp)
+	sub(jtemp,a)
+	subleq(jtemp,zero,good)
+	jump(skip)
+	good:
+
+	subleq(jtemp,n1,skip)
+	jump(label)
+
+	skip:
+}
+function jneq0(a,label)
+{
+	!var jtemp 0
+	!var n1 -1
+
+	clear(jtemp)
+	sub(jtemp,a)
+	subleq(jtemp,zero,good)
+	jump(label)
+	good:
+	subleq(jtemp,n1,label)
+
+}
+
+function jlt0(a,label)
+{
+	!var jtemp 0
+	!var p1 1
+
+	clear(jtemp)
+	sub(jtemp,a)
+	subleq(jtemp,zero,good)
+	jump(label)
+	good:
+
+	subleq(jtemp,p1,skip)
+	jump(label)
+	skip:
+}
+function jgte0(a,label)
+{
+	!var jtemp 0
+	!var p1 1
+
+	clear(jtemp)
+	sub(jtemp,a)
+	subleq(jtemp,zero,good)
+	jump(skip)
+	good:
+
+	subleq(jtemp,p1,label)
+	skip:
+}
+
+
+function jlte0(a,label)
+{
+	!var zero 0
+	subleq(a,zero,label)
+}
+function jgt0(a,label)
+{
+	!var zero 0
+	subleq(a,zero,skip)
+	jump(label)
+	skip:
+}
+
+
 function jeq(a,b,label)
 {
-	!var temp 0
-	!var temp2 0
-
+	!var jtemp 0
+	!var jtemp2 0
+    !var n1 -1
 	
-	clear(temp)
-    sub(temp,a)
-	clear(temp2)
-	sub(temp2,b)
+	clear(jtemp)
+    sub(jtemp,a)
+	clear(jtemp2)
+	sub(jtemp2,b)
 
-	subleq(temp2,temp,good)
+	subleq(jtemp2,jtemp,good)
 	jump(bad)
 	good:
-	subleq(temp2,n1,bad)
+	subleq(jtemp2,n1,bad)
 	jump(label)
 	bad:
 }
 function jneq(a,b,label)
 {
-	!var temp 0
-	!var temp2 0
-
+	!var jtemp 0
+	!var jtemp2 0
+    !var n1 -1
 	
-	clear(temp)
-    sub(temp,a)
-	clear(temp2)
-	sub(temp2,b)
+	clear(jtemp)
+    sub(jtemp,a)
+	clear(jtemp2)
+	sub(jtemp2,b)
 
-	subleq(temp2,temp,good)
+	subleq(jtemp2,jtemp,good)
 	jump(label)
 	good:
-	subleq(temp2,n1,label)
+	subleq(jtemp2,n1,label)
 }
 function jgt(a,b,label)
 {
-	!var temp 0
-	!var temp2 0
+	!var jtemp 0
+	!var jtemp2 0
 
 	
-	clear(temp)
-    sub(temp,a)
-	clear(temp2)
-	sub(temp2,b)
+	clear(jtemp)
+    sub(jtemp,a)
+	clear(jtemp2)
+	sub(jtemp2,b)
 
-	subleq(temp2,temp,skip)
+	subleq(jtemp2,jtemp,skip)
 	jump(label)
 	skip:
 }
 function jlt(a,b,label)
 {
-	!var temp 0
-	!var temp2 0
+	!var jtemp 0
+	!var jtemp2 0
 
 	
-	clear(temp)
-    sub(temp,a)
-	clear(temp2)
-	sub(temp2,b)
+	clear(jtemp)
+    sub(jtemp,a)
+	clear(jtemp2)
+	sub(jtemp2,b)
 
-	subleq(temp,temp2,skip)
+	subleq(jtemp,jtemp2,skip)
 	jump(label)
 	skip:
 }
 function jlte(a,b,label)
 {
-	!var temp 0
-	!var temp2 0
+	!var jtemp 0
+	!var jtemp2 0
 
-	clear(temp)
-	sub(temp,a)
-	clear(temp2)
-	sub(temp2,b)
+	clear(jtemp)
+	sub(jtemp,a)
+	clear(jtemp2)
+	sub(jtemp2,b)
 
-	subleq(temp2,temp,label)
+	subleq(jtemp2,jtemp,label)
 }
 function jgte(a,b,label)
 {
-	!var temp 0
-	!var temp2 0
+	!var jtemp 0
+	!var jtemp2 0
 
-	clear(temp)
-    sub(temp,a)
-	clear(temp2)
-	sub(temp2,b)
+	clear(jtemp)
+    sub(jtemp,a)
+	clear(jtemp2)
+	sub(jtemp2,b)
 
-	subleq(temp,temp2,label)
+	subleq(jtemp,jtemp2,label)
+}
+
+
+function ifgt(a,b,else){
+	jlte(a,b,else)
+}
+function ifgte(a,b,else){
+	jlt(a,b,else)
+}
+function iflt(a,b,else){
+	jgte(a,b,else)
+}
+function iflte(a,b,else){
+	jgt(a,b,else)
+}
+function ifeq(a,b,else){
+	jneq(a,b,else)
+}
+function ifneq(a,b,else){
+	jeq(a,b,else)
+}
+
+function ifgt0(a,else){
+	jlte0(a,else)
+}
+function ifgte0(a,else){
+	jlt0(a,else)
+}
+function iflt0(a,else){
+	jgte0(a,else)
+}
+function iflte0(a,else){
+	jgt0(a,else)
+}
+function ifeq0(a,else){
+	jneq0(a,else)
+}
+function ifneq0(a,else){
+	jeq0(a,else)
 }

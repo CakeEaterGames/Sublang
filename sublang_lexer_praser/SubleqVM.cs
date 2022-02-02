@@ -78,6 +78,7 @@ namespace Sublang
                 else if (A == -1)
                 {
                     //Console.Write((char)cell[B]);
+                    //Console.WriteLine(cell[B]);
                     outputs.Enqueue(cell[B]);
                     pc += 3;
                 }

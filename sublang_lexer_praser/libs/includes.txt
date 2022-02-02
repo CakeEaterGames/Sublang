@@ -3,3 +3,4 @@
 !include "libs/jump.txt"
 !include "libs/math.txt"
 !include "libs/arrays.txt"
+!include "libs/functions.txt"

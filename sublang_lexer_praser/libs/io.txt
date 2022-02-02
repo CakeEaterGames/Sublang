@@ -13,6 +13,18 @@ function write(a)
 	sub(-1,a)
 }
 
+function writeln(a)
+{
+	!var p10 10
+	sub(-1,a)
+	sub(-1,p10)
+}
+function writeln()
+{
+	!var p10 10
+	sub(-1,p10)
+}
+
 function writeStr(s)
 {
 	!var zero 0
@@ -58,6 +70,8 @@ function readInt(a)
 	!var p1 1
 	!var p9 9
 	!var charMinus 45
+	!var char0 48
+	!var char9 57
 
 	read(tempint)
 	
@@ -97,3 +111,82 @@ function readInt(a)
 	set(a,intSum)
 }
 
+function writeInt(a)
+{
+	jump(skipLocals),
+		num: 0,
+		count: 0,
+	skipLocals:
+	
+	!var char0 48
+	!var charMinus 45
+
+	set(num,a)
+
+	ifeq0(num,else1)
+		write(char0)
+		jump(endWrite)
+	else1:
+
+	iflt0(num,else2)
+		write(charMinus)
+		neg(num)
+	else2:
+
+	!var p1 1
+	!var p10 10
+	!var p100 100
+	!var p1000 1000
+	!var p10000 10000
+	!var p100000 100000
+	!var p1000000 1000000
+	!var p10000000 10000000
+	!var p100000000 100000000
+	!var p1000000000 1000000000
+ 
+	jgte(num,p1000000000, d10)
+	jgte(num,p100000000, d9)
+	jgte(num,p10000000, d8)
+	jgte(num,p1000000, d7)
+	jgte(num,p100000, d6)
+	jgte(num,p10000, d5)
+	jgte(num,p1000, d4)
+	jgte(num,p100, d3)
+	jgte(num,p10, d2)
+	jump(d1)
+
+	d10:
+	_writeInt(p1000000000)
+	d9:
+	_writeInt(p100000000)
+	d8:
+	_writeInt(p10000000)
+	d7:
+	_writeInt(p1000000)
+	d6:
+	_writeInt(p100000)
+	d5:
+	_writeInt(p10000)
+	d4:
+	_writeInt(p1000)
+	d3:
+	_writeInt(p100)
+	d2:
+	_writeInt(p10)
+	d1:
+	_writeInt(p1)
+
+
+	endWrite:
+}
+
+function _writeInt(pp){
+	set(count,char0)
+	loop:
+		jlt(num,pp,endLoop)
+		inc(count)
+		sub(num,pp)
+		jump(loop)
+	endLoop:
+	write(count)
+}

@@ -613,9 +613,30 @@ namespace Sublang
             }
         }
 
-        internal void CheckForUndefined()
+        public void CheckForUndefined()
         {
-            throw new NotImplementedException();
+            foreach (var tg in code)
+            {
+                foreach (var t in tg.Tokens)
+                {
+                    switch (t.Type)
+                    {
+                        case TokenType.number:
+                        case TokenType.plus:
+                        case TokenType.minus:
+                        case TokenType.mul:
+                        case TokenType.div:
+                        case TokenType.mod:
+                        case TokenType.openr:
+                        case TokenType.closer:
+                            break;
+                        default:
+                            throw new Exception("Unexpected token "+t);
+                             
+                    }
+                }
+                 
+            }
         }
     }
 

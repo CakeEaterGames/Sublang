@@ -48,10 +48,10 @@ function main()
 	skipFuncs:
 	
 	loop:
-	call(fib,i)
-	writeInt(_return1)
-	writeln()
-	inc(i)
+		call(fib,i)
+		writeInt(_return1)
+		writeln()
+		inc(i)
 	jlte(i,to,loop)
 
 	jump(-1)

@@ -1,0 +1,62 @@
+﻿function call(func)
+{
+	push(cb)
+	jump(func)
+	
+	cb: comeback,
+	comeback:
+}
+function call(func, par1)
+{
+    !var _param1 0
+
+	set(_param1,par1)
+	call(func)
+}
+function call(func, par1, par2)
+{
+    !var _param1 0
+    !var _param2 0
+
+	set(_param1,par1)
+	set(_param2,par2)
+	call(func)
+}
+function call(func, par1, par2, par3)
+{
+    !var _param1 0
+    !var _param2 0
+    !var _param3 0
+
+	set(_param1,par1)
+	set(_param2,par2)
+	set(_param3,par3)
+	call(func)
+}
+ 
+//  Add more if needed
+
+function return()
+{
+	pop(jump+2)
+	jump:
+	jump(0)
+}
+function return(val1)
+{
+	!var _return1 0
+
+	set(_return1,val1)
+    return()
+}
+function return(val1,val2)
+{
+	!var _return1 0
+	!var _return2 0
+
+	set(_return1,val1)
+    set(_return2,val2)
+    return()
+}
+
+//  Add more if needed
