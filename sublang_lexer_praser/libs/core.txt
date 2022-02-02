@@ -1,0 +1,14 @@
+﻿function subleq(a, b)
+{
+    b,a,?+1
+}
+
+function subleq(a, b, c)
+{
+    b, a, c
+}
+
+function clear(a)
+{
+    a, a, ?+1
+}

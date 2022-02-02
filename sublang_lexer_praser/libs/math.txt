@@ -1,0 +1,93 @@
+﻿
+function sub(a,b)
+{
+	b,a,?+1
+}
+
+function sub(a,b,c)
+{
+	!var temp 0
+
+	clear(temp)
+	sub(temp,a)
+		
+	//c=--a-b
+	clear(c)
+	sub(c,temp)
+	sub(c,b)
+}
+
+function set(a, b)
+{
+	!var temp 0
+    clear(a)
+    clear(temp)
+    sub(temp, b)
+    sub(a, temp)
+}
+
+function add(a, b, c)
+{
+	!var temp 0
+
+    clear(temp)
+    sub(temp, a)
+    sub(temp, b)
+
+    clear(c)
+    sub(c, temp)
+}
+
+function add(a, b)
+{
+	!var temp 0
+	
+    clear(temp)
+    sub(temp, a)
+    sub(temp, b)
+
+    clear(a)
+    sub(a, temp)
+}
+
+function neg(a,b)
+{
+	clear(a)
+	sub(b,a)
+}
+
+
+function neg(a)
+{
+    !var temp 0
+	!var temp2 0
+
+	clear(temp)
+	clear(temp2)
+
+	sub(temp,a)
+	sub(temp2,temp)
+
+	clear(a)
+	sub(a,temp2)
+}
+
+
+function inc(a)
+{
+	!var n1 -1
+	sub(a,n1)
+}
+
+function dec(a)
+{
+	!var p1 1
+	sub(a,p1)
+}
+
+//Adds 1 to i. While i>=0 gotoLabel
+function incJump(i,label)
+{
+	!var n1 -1
+	subleq(i,n1,label)
+}

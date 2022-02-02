@@ -1,0 +1,99 @@
+﻿function read(a)
+{
+	!var temp 0
+
+    clear(temp)
+    clear(a)
+    sub(temp, -1)
+    sub(a, temp)
+}
+
+function write(a)
+{
+	sub(-1,a)
+}
+
+function writeStr(s)
+{
+	!var zero 0
+	!var n1 -1
+
+	//Save string pointer to write it again later
+	jump(skipConsts)
+		startPtr:s,
+	skipConsts:
+
+	//Main loop
+	loop:
+		subleq(s,zero,end)
+		write(s)
+		sub(loop+1,n1)
+		sub(loop+3,n1)
+	jump(loop)
+
+	end:
+	//Reset the pointers
+	set(loop+1, startPtr)
+	set(loop+3, startPtr)
+}
+
+
+//Reads chars from console
+//First char can be -
+//Others have to be 0-9
+//When encountering a char that is not 0-9 finish the number collection
+//Than means that whatever char is after the number is discarded
+function readInt(a)
+{
+	jump(skipLocals),
+		i:0,
+		tempint: 0,
+		tempint2: 0,
+		isNeg: 0,
+		intSum: 0,
+	skipLocals:
+	
+	clear(intSum)
+
+	!var p1 1
+	!var p9 9
+	!var charMinus 45
+
+	read(tempint)
+	
+	jneq(tempint,charMinus,notNeg)
+		set(isNeg,p1)
+		read(tempint)
+		jump(negEnd)
+	notNeg:
+		clear(isNeg)
+	negEnd:
+
+	loop:
+	jlt(tempint,char0,end)
+	jgt(tempint,char9,end)
+	sub(tempint,char0)
+
+	clear(i)
+	sub(i,p9)
+	clear(tempint2)
+	mulLoop:
+		sub(tempint2,intSum)
+	incJump(i,mulLoop)
+
+	sub(tempint2,tempint)
+
+	clear(intSum)
+	sub(intSum,tempint2)
+	read(tempint)
+	jump(loop)
+
+	end:
+	
+	subleq(isNeg,zero,asd)
+	neg(intSum)
+	asd:
+
+	set(a,intSum)
+}
+

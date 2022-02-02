@@ -1,0 +1,26 @@
+﻿!include "libs/includes.txt"
+
+
+function writeInt(a)
+{
+	clear(a)
+}
+
+function main()
+{
+	!var i -10
+	!var n1 -1
+	!var a 0
+
+	loop:
+		readInt(a)	
+		write(a)
+	jump(loop)
+
+	jump(-1)
+	//Constants 
+	
+	!vars_location
+ 
+
+}

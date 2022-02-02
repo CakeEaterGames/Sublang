@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sublang", "sublang_lexer_praser\Sublang.csproj", "{3909955C-AA99-4049-B228-61BA5CF90351}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3909955C-AA99-4049-B228-61BA5CF90351}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3909955C-AA99-4049-B228-61BA5CF90351}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3909955C-AA99-4049-B228-61BA5CF90351}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3909955C-AA99-4049-B228-61BA5CF90351}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {180E730C-D081-426B-BD4C-071AEB1F8930}
+	EndGlobalSection
+EndGlobal

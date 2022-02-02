@@ -1,0 +1,95 @@
+﻿
+function jump(a)
+{
+	!var zero 0
+    zero, zero, a
+}
+
+function jeq(a,b,label)
+{
+	!var temp 0
+	!var temp2 0
+
+	
+	clear(temp)
+    sub(temp,a)
+	clear(temp2)
+	sub(temp2,b)
+
+	subleq(temp2,temp,good)
+	jump(bad)
+	good:
+	subleq(temp2,n1,bad)
+	jump(label)
+	bad:
+}
+function jneq(a,b,label)
+{
+	!var temp 0
+	!var temp2 0
+
+	
+	clear(temp)
+    sub(temp,a)
+	clear(temp2)
+	sub(temp2,b)
+
+	subleq(temp2,temp,good)
+	jump(label)
+	good:
+	subleq(temp2,n1,label)
+}
+function jgt(a,b,label)
+{
+	!var temp 0
+	!var temp2 0
+
+	
+	clear(temp)
+    sub(temp,a)
+	clear(temp2)
+	sub(temp2,b)
+
+	subleq(temp2,temp,skip)
+	jump(label)
+	skip:
+}
+function jlt(a,b,label)
+{
+	!var temp 0
+	!var temp2 0
+
+	
+	clear(temp)
+    sub(temp,a)
+	clear(temp2)
+	sub(temp2,b)
+
+	subleq(temp,temp2,skip)
+	jump(label)
+	skip:
+}
+function jlte(a,b,label)
+{
+	!var temp 0
+	!var temp2 0
+
+	clear(temp)
+	sub(temp,a)
+	clear(temp2)
+	sub(temp2,b)
+
+	subleq(temp2,temp,label)
+}
+function jgte(a,b,label)
+{
+	!var temp 0
+	!var temp2 0
+
+	clear(temp)
+    sub(temp,a)
+	clear(temp2)
+	sub(temp2,b)
+
+	subleq(temp,temp2,label)
+}

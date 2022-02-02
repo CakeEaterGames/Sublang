@@ -1,0 +1,53 @@
+﻿
+function geti(addr, offset, out)
+{
+	!var getiTemp 0
+
+	clear(getpart)
+	clear(getiTemp)
+	sub(getiTemp, default_val)
+	sub(getiTemp, offset)
+	sub(getpart, getiTemp)
+
+	clear(out)
+	clear(getiTemp)
+
+	getpart:
+	sub(getiTemp, addr)
+	sub(out, getiTemp)
+	
+	jump(skip)
+		default_val: addr,
+	skip:
+}
+
+
+function seti(addr, offset, val)
+{
+	!var setiTemp 0
+	
+	clear(setiTemp)
+	sub(setiTemp, default_val)
+	sub(setiTemp, offset)
+		
+	clear(clearpart)
+	sub(clearpart,setiTemp)
+
+	clear(clearpart+1)
+	sub(clearpart+1,setiTemp)
+
+	clear(setpart+1)
+	sub(setpart+1, setiTemp)
+	 
+	clear(setiTemp)
+	sub(setiTemp,val)
+
+	clearpart:
+	sub(addr, addr)
+	setpart:
+	sub(addr, setiTemp)
+ 	
+	jump(skip)
+		default_val: addr,
+	skip:
+}
