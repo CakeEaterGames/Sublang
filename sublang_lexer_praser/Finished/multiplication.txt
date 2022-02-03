@@ -1,0 +1,115 @@
+﻿!include "libs/includes.txt"
+
+
+ 
+function mul(par1,par2,ret1)
+{
+	set(mul+5, cb)
+	set(mul+6, par1)
+	set(mul+7, par2)
+
+	!var _return1 0
+
+	jump(mul)
+	cb: comeback,
+	comeback:
+	set(ret1,_return1)
+}
+function _mul()
+{
+	jump(skipVars)
+		ret: jump(0),
+		a: 0,
+		b: 0,
+		temp: 0,
+		sum: 0,
+		neg: 0,
+	skipVars:
+
+	clear(neg)
+	clear(sum)
+
+	!var zero 0
+	!var _return1 0
+
+	ifeq0(a,else1)
+		set(_return1,zero)
+		jump(ret)
+	else1:
+		
+	ifeq0(b,else2)
+		set(_return1,zero)
+		jump(ret)
+	else2:
+
+	iflt0(a,else3)
+		inc(neg)
+		neg(a)
+	else3:
+
+	iflt0(b,else4)
+		inc(neg)
+		neg(b)
+	else4:
+
+
+	ifgt(a,b,else5)
+		swap(a,b)
+	else5:
+
+	//	now a <= b
+
+	neg(a)
+	inc(a)
+
+
+	loop:
+		sub(sum,b)
+	incJump(a,loop)
+
+	ifeq(neg,p1,else6)
+		set(_return1,sum)
+		jump(ret)
+	else6:
+		clear(_return1)
+		sub(_return1,sum)
+		jump(ret)
+}
+
+ 
+function main()
+{
+	!var to 3
+	!var i -3
+	!var j -3
+	!var n3 -3
+	!var a 0
+
+	jump(skipFuncs)
+		writeInt: _writeInt(),
+		mul: _mul(),
+	skipFuncs:
+ 
+	loop:
+		loop2:
+			writeIntsp(i)
+			writeIntsp(j)
+	
+			mul(i,j,a)
+			writeIntln(a)
+
+			inc(j)
+			jlte(j,to,loop2)
+		set(j,n3)
+		inc(i)
+		jlte(i,to,loop)
+	set(i,n3)
+
+	jump(-1)
+	
+	!vars_location
+
+	_stack: 0,
+	!zeroes 250
+	
+}

@@ -1,4 +1,15 @@
-﻿function read(a)
+﻿function writeln()
+{
+	!var p10 10
+	sub(-1,p10)
+}
+function writesp()
+{
+	!var charSpace 32
+	sub(-1,charSpace)
+}
+
+function read(a)
 {
 	!var temp 0
 
@@ -12,20 +23,20 @@ function write(a)
 {
 	sub(-1,a)
 }
-
 function writeln(a)
 {
-	!var p10 10
-	sub(-1,a)
-	sub(-1,p10)
+	write(a)
+	writeln()
 }
-function writeln()
+function writesp(a)
 {
-	!var p10 10
-	sub(-1,p10)
+	write(a)
+	writesp()
 }
 
-function writeStr(s)
+//	Old function. Bad because can onle ever print 1 exact string
+//  s is not a variable. It is a pointer to the start of a string
+function writeStrMacro(s)
 {
 	!var zero 0
 	!var n1 -1
@@ -47,6 +58,51 @@ function writeStr(s)
 	//Reset the pointers
 	set(loop+1, startPtr)
 	set(loop+3, startPtr)
+}
+
+function writeStr(s)
+{
+	set(writeStr+5, cb)
+	set(writeStr+6, s)
+
+	jump(writeStr)
+	cb: comeback,
+	comeback:
+}
+
+function writelnStr(s)
+{
+	writeStr(s)
+	writeln()
+}
+function writespStr(s)
+{
+	writeStr(s)
+	writesp()
+}
+
+function _writeStr()
+{
+	jump(skipConsts)
+		ret: jump(0),
+		startPtr: 0,
+	skipConsts:
+
+	!var zero 0
+	!var n1 -1
+
+	//Reset the pointers
+	set(loop+1, startPtr)
+	set(loop+3, startPtr)
+
+	//Main loop
+	loop:
+		subleq(0,zero,ret)
+		write(0)
+		sub(loop+1,n1)
+		sub(loop+3,n1)
+	jump(loop)
+
 }
 
 
@@ -111,21 +167,41 @@ function readInt(a)
 	set(a,intSum)
 }
 
+
 function writeInt(a)
 {
+	set(writeInt+5, cb)
+	set(writeInt+6, a)
+
+	jump(writeInt)
+	cb: comeback,
+	comeback:
+}
+function writelnInt(a)
+{
+	writeInt(a)
+	writeln()
+}
+function writespInt(a)
+{
+	writeInt(a)
+	writesp()
+}
+
+function _writeInt()
+{
 	jump(skipLocals),
+		ret: jump(0),
 		num: 0,
 		count: 0,
 	skipLocals:
 	
 	!var char0 48
 	!var charMinus 45
-
-	set(num,a)
-
+ 
 	ifeq0(num,else1)
 		write(char0)
-		jump(endWrite)
+		jump(ret)
 	else1:
 
 	iflt0(num,else2)
@@ -156,31 +232,31 @@ function writeInt(a)
 	jump(d1)
 
 	d10:
-	_writeInt(p1000000000)
+	__writeInt(p1000000000)
 	d9:
-	_writeInt(p100000000)
+	__writeInt(p100000000)
 	d8:
-	_writeInt(p10000000)
+	__writeInt(p10000000)
 	d7:
-	_writeInt(p1000000)
+	__writeInt(p1000000)
 	d6:
-	_writeInt(p100000)
+	__writeInt(p100000)
 	d5:
-	_writeInt(p10000)
+	__writeInt(p10000)
 	d4:
-	_writeInt(p1000)
+	__writeInt(p1000)
 	d3:
-	_writeInt(p100)
+	__writeInt(p100)
 	d2:
-	_writeInt(p10)
+	__writeInt(p10)
 	d1:
-	_writeInt(p1)
+	__writeInt(p1)
 
-
-	endWrite:
+ 
+	jump(ret)
 }
 
-function _writeInt(pp){
+function __writeInt(pp){
 	set(count,char0)
 	loop:
 		jlt(num,pp,endLoop)

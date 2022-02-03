@@ -45,6 +45,9 @@
   <ItemGroup>
     <Compile Include="Compiler.cs" />
     <Content Include="Finished\fibonachi.txt" />
+    <Content Include="Finished\multiplication.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="libs\functions.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -52,6 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Lexer.cs" />
     <Compile Include="SubleqVM.cs" />
+    <Content Include="libs\old.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

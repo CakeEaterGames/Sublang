@@ -1,4 +1,7 @@
-﻿function call(func)
+﻿//These are used for recursive functions only.
+//It isn't nessesary to push return pointers onto the stack if you don't call the function inside of itself
+
+function call(func)
 {
 	push(cb)
 	jump(func)
@@ -60,3 +63,29 @@ function return(val1,val2)
 }
 
 //  Add more if needed
+
+
+
+//	These are examples for non recursive functions
+
+function functionName(par1){
+	set(functionPointer+5, cb)
+	set(functionPointer+6, par1)
+
+	jump(functionPointer)
+	cb: comeback,
+	comeback:
+}
+
+function _functionName()
+{
+	jump(skipVars)
+		ret: jump(0),
+		a: 0,
+	skipVars:
+
+	//Your code here
+	//a will be set to par1
+
+	jump(ret)
+}
