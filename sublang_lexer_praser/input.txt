@@ -221,6 +221,39 @@ function fib()
 	end:	
 }
 
+function testInt()
+{
+
+	jump(skip)
+		TestIntStr:tTestIntStr,
+		tTestIntStr: !stringz "2147483647 + 1 = ",
+		
+		Good: tGood,
+		Bad: tBad,
+
+		tGood: !stringz "Successful overflow!",
+		tBad: !stringz "The result should've been -2147483648. WARNING! This interpreter is not using 32 bit Integers! This can lead to unexpecded behaviour!",
+		t:0,
+	skip:
+
+	!var maxInt 2147483647
+	!var minInt -2147483648
+ 
+	set(t,maxInt)
+	inc(t)
+
+	writeStr(TestIntStr)
+	writeInt(t) writelnp()
+
+	ifeq(t,minInt,else)
+		writeStr(Good)
+	jump(end)
+	else:
+		writeStr(Bad)
+	end:
+ 
+}
+
 function main()
 {
 	jump(skipFuncs)
@@ -234,11 +267,7 @@ function main()
 		rngNext: _rngNext(),
 		rngNext2: _rngNext2(),
 		fib: fib(),
-
-		a:2147483647,
-		//b:10,
-		//c:0,
-		d:0,
+ 
 	skipFuncs:
  
 	!var ist -1000
@@ -261,6 +290,9 @@ function main()
 
 	TestN(ops+4)
 	testFib()
+
+	TestN(ops+5)
+	testInt()
 
 	jump(-1)
 	
@@ -285,11 +317,10 @@ function main()
 	top3: !stringz "Multiplying numbers",
 	top4: !stringz "Dividing numbers",
 	top5: !stringz "Calculating the Fibonacci sequence (recursion, no memoization)",
-	top6: !stringz "",
+	top6: !stringz "Testing for 32 bit integer overflow",
 
 
 	_stack: _mainStack,
-	_stackLen: 0,
 	_mainStack: 0,
 	!zeroes 250
 } 
