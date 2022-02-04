@@ -41,15 +41,16 @@ function call(func, par1, par2, par3)
 
 function return()
 {
-	pop(jump+2)
-	jump:
+	pop(rjump+2)
+	rjump:
 	jump(0)
 }
 function return(val1)
 {
 	!var _return1 0
-
+ 
 	set(_return1,val1)
+	//writelnInt(_return1)
     return()
 }
 function return(val1,val2)

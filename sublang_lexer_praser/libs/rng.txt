@@ -1,0 +1,91 @@
+﻿//Generates random numbers from 0 to 65536
+
+function rngObject()
+{
+    //unused
+    seed: 123,
+	a: 75,
+	c: 74,
+	m: 65536+1,
+}
+
+function rngNext(out)
+{
+	set(rngNext+5, cb)
+
+	jump(rngNext)
+	cb: comeback,
+	comeback:
+
+	set(out,_return1)
+}
+function rngSeed(s)
+{
+	set(rngNext+6, s)
+}
+function _rngNext()
+{
+	jump(skipVars)
+		ret: jump(0),
+        seed: 123,
+		a: 75,
+		c: 74,
+		m: 65536+1,
+		t: 0,
+		d: 0,
+	skipVars:
+
+	//seed = (a * seed + c) % modulus
+
+	mul(a,seed,t)
+	add(t,c)
+	div(t,m,d,seed)
+
+	set(_return1,seed)
+
+	jump(ret)
+}
+
+function rngNext(a,b,out)
+{
+	set(rngNext2+5, cb)
+	set(rngNext2+6, a)
+	set(rngNext2+7, b)
+
+	jump(rngNext2)
+	cb: comeback,
+	comeback:
+
+	set(out,_return1)
+}
+
+function _rngNext2()
+{
+    jump(skipVals)
+        ret: jump(0),
+        a:0,
+        b:0,
+        r:0,
+        len:0,
+        mulby: 6000,
+        max: 65536,
+    skipVals:
+    
+    inc(b)
+    sub(b,a,len)
+    set(mulby,len)
+
+    rngNext(r)
+    mul(r,mulby)  
+    div(r,max)
+
+    mul(r,len)
+    div(r,mulby)
+    add(r,a)
+
+    set(_return1,r)
+
+    //return a+((b-a)*rng*1000/maxrng/1000)
+    
+    jump(ret)
+}

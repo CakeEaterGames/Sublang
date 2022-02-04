@@ -152,67 +152,57 @@ A compiler should also return an object with all label locations and values to w
 */
 
 /*
- To make Bad Apple in subleq (or any video)
- Convert a video to black and white with high contrast
- export as image sequance at low res and low framerate
- load all images into monogame
- Get a color to char function
- compare all neighbour images with eachother and generate a list [[pos, char, pos, char, -1],[pos, char, pos, char, -1],-2]
- convert it to numbers and put it in a file
- make a subleq program
- allocate N cells to screen space and fill them with spaces + \n after each line
- make a seti function
- make a writeScreen function
- loop over the list
- if -1 write screen
- if -2 end 
- readchar
+    Testing program
 
- set screen char A to B
- inc pointer by 2
- loop
- 
+    ##########################################################################
+    #                                                                        #
+    #   Hello! I am the Subleq testing program.                              #
+    #   I will now test your interpreter by pefrorming various operations.   #
+    #                                                                        #
+    ##########################################################################
+
+    Test 1:
+    ASCII table printing
+    .....    
+
+    Test 2:
+    Subtraction
+    a-b=c
+    .....
+
+    Test 3:
+    Addition
+    a+b=c
+    .....
+
+    Test 4:
+    Multiplication
+    a*b=c
+    .....
+        
+    Test 5:
+    Division
+    a/b=c (d)
+    .....
+
+    Test 7:
+    Integer overflow
+
+    Test 6:
+    Random number generation
+
+    Test:
+    Requrcive functions
+    Calculating the Fibonacci sequence (Without memoisation)
+
+    Test:
+    Input
+    Please write a number followed by any character
+    double the number
 
 
-    OR
-    Video data should be [[pos,pos],-1,[pos,pos],-1,[pos,pos],-1,[pos,pos],-1,[pos,pos],-1,[pos,pos],-1],     [[pos,pos],-1,[pos,pos],-1,[pos,pos],-1,[pos,pos],-1,[pos,pos],-1,[pos,pos],-1], -2
-    basically
-    replace chars at positions with @
-    replace chars at positions with #
-    ...
-    replace chars at positions with _
-    new frame
-    repeat
-    Should cut the file size in half
- */
-/*
-27 71
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
-#######################################################################
 
-    */
+
+
+
+*/

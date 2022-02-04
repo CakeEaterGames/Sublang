@@ -1,39 +1,296 @@
 ﻿!include "libs/includes.txt"
  
+function writelnp()
+{
+	!var charSpace 32
+	!var p3 3
+
+	writeln()
+	write(charSpace)
+	write(charSpace)
+	write(charSpace)
+	//writeTimes(charSpace,p3)
+}
+
+function introduction()
+{
+	writelnp()
+	writeStr(welc1) writelnp()
+	writeStr(welc2) writelnp()
+}
+
+function _TestN()
+{
+	jump(skipVars)
+		ret: jump(0),
+		operation: 0,
+		str: strp,
+	    strp: !stringz "Test ",
+		n: 1,
+	skipVars:
+
+	!var sep 126
+	!var sep 95
+	!var sepLen 66
+
+	writelnp()
+	writeTimes(sep,sepLen)   writelnp()
+ 
+	writeStr(str)
+	writespInt(n)
+
+	writeStr(operation)   writelnp()
+
+	writelnp()
+
+	inc(n)
+	jump(ret)
+}
+
+function TestN(op)
+{
+	set(TestN+5,cb)
+	set(TestN+6,op)
+	jump(TestN)
+
+	cb:comeback,
+	comeback:
+}
+
+function printASCII()
+{
+	!var i 0
+	!var p127 127
+	clear(i)
+
+	loop:
+	iflte(i,p127,else)
+		writespInt(i)
+		write(i)
+		writelnp()
+		inc(i)
+		jump(loop)
+	else:
+}
+
+
+function testMul()
+{
+	jump(skip)
+		i:0,
+		st:-100,
+		ed:100,
+		ist:-9,
+		a:0,
+		b:0,
+	skip:
+
+	!var charMul 42
+	!var equals 61
+
+	set(i,ist)
+	loop1:
+		rngNext(st,ed,a)
+		rngNext(st,ed,b)
+ 
+		writespInt(a)
+		writesp(charMul)
+		writespInt(b)
+		writesp(equals)
+		mul(a,b)
+		writeInt(a)
+		writelnp()
+	
+	incJump(i,loop1)
+	else1:
+}
+function testDiv()
+{
+	jump(skip)
+		i:0,
+		st:-100,
+		ed:100,
+		ist:-9,
+		a:0,
+		b:0,
+		t1:0,
+		t2:0,
+	skip:
+
+	!var charDiv 47
+	!var equals 61
+	!var charOpenr 40
+	!var charCloser 41
+
+	set(i,ist)
+	loop1:
+		rngNext(st,ed,a)
+		rngNext(st,ed,b)
+ 
+		writespInt(a)
+		writesp(charDiv)
+		writespInt(b)
+		writesp(equals)
+		div(a,b,t1,t2)
+		writespInt(t1)
+		write(charOpenr)
+		writeInt(t2)
+		write(charCloser)
+
+		writelnp()
+		incJump(i,loop1)
+	else1:
+}
+
+
+function testRng()
+{
+	jump(skip)
+		i:0,
+		st:0,
+		ed:100,
+		ist:-9,
+		v:0,
+	skip:
+
+	set(i,ist)
+	loop:
+		rngNext(st,ed,v)
+		writeInt(v) writelnp()
+	incJump(i,loop)
+}
+
+function testFib()
+{
+	jump(skip)
+		i:0,
+		st:0,
+		ed:20,
+	skip:
+
+	set(i,st)
+	loop:
+		call(fib,i)
+		writeInt(_fibRet)
+		writelnp()
+		inc(i)
+	jlt(i,ed,loop)
+	
+}
+
+function fib()
+{
+	jump(skipVars)
+		a: 0,
+		b: 0,
+		res: 0,
+		n: 0,
+	skipVars:
+
+	set(n,_param1)
+
+	!var zero 0
+	!var _fibRet 0
+	!var p1 1
+
+	//writelnInt(n)
+
+	ifeq0(n,else1)
+		set(_fibRet,zero)
+		return(zero)
+	else1:
+	ifeq(n,p1,else2)
+		set(_fibRet,p1)
+		return(p1)
+	else2:
+		dec(n)
+		push(n)
+		call(fib,n)
+		set(a, _fibRet)
+		pop(n)
+
+		dec(n)
+		push(a)
+		call(fib,n)
+		set(b, _fibRet)
+		pop(a)
+
+		add(a,b,res)
+		set(_fibRet,res)
+		return(res)
+	end:	
+}
+
 function main()
 {
-	!var to 3
-	!var cur 0
-	!var n3 -3
-	!var a 0
-
 	jump(skipFuncs)
 		writeInt: _writeInt(),
 		writeStr: _writeStr(),
 		mul: _mul(),
+		div: _div(),
+		geti: _geti(),
+		seti: _seti(),
+		TestN: _TestN(),
+		rngNext: _rngNext(),
+		rngNext2: _rngNext2(),
+		fib: fib(),
+
+		a:2147483647,
+		//b:10,
+		//c:0,
+		d:0,
 	skipFuncs:
  
-	set(cur,s1)
-	writelnStr(cur)
-	writelnStr(cur)
-	set(cur,s2)
-	writelnStr(cur)
-	set(cur,s3)
-	writelnStr(cur)
+	!var ist -1000
+	!var st -10
+	!var ed 10
+ 
+	introduction()
+	
+	TestN(ops+0)
+	printASCII()
+	
+	TestN(ops+1)
+	testRng()
+
+	TestN(ops+2)
+	testMul()
+
+	TestN(ops+3)
+	testDiv()
+
+	TestN(ops+4)
+	testFib()
 
 	jump(-1)
 	
 	!vars_location
-	
-	s1: s1p,
-	s2: s2p,
-	s3: s3p,
+ 
+	welc1: tWelc1,
+	welc2: tWelc2,
 
-	s1p: !stringz "Hello",
-	s2p: !stringz "World",
-	s3p: !stringz "Planet",
-
-	_stack: 0,
-	!zeroes 10
+	tWelc1: !stringz "Hello! I am the Subleq testing program.",
+	tWelc2: !stringz "I will now test your interpreter by pefrorming various operations.",
 	
-}
+	ops:
+	top1,
+	top2,
+	top3,
+	top4,
+	top5,
+	top6,
+
+	top1: !stringz "Printing the ASCII table",
+	top2: !stringz "Testing the Random Number Generator",
+	top3: !stringz "Multiplying numbers",
+	top4: !stringz "Dividing numbers",
+	top5: !stringz "Calculating the Fibonacci sequence (recursion, no memoization)",
+	top6: !stringz "",
+
+
+	_stack: _mainStack,
+	_stackLen: 0,
+	_mainStack: 0,
+	!zeroes 250
+} 
+ 

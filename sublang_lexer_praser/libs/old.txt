@@ -1,4 +1,60 @@
 ﻿
+
+//Equivalent to out = addr[offset]
+function geti(addr, offset, out)
+{
+	!var getiTemp 0
+
+	clear(getpart)
+	clear(getiTemp)
+	sub(getiTemp, default_val)
+	sub(getiTemp, offset)
+	sub(getpart, getiTemp)
+
+	clear(out)
+	clear(getiTemp)
+
+	getpart:
+	sub(getiTemp, addr)
+	sub(out, getiTemp)
+	
+	jump(skip)
+		default_val: addr,
+	skip:
+}
+
+//Equivalent to addr[offset] = val
+function seti(addr, offset, val)
+{
+	!var setiTemp 0
+	
+	clear(setiTemp)
+	sub(setiTemp, default_val)
+	sub(setiTemp, offset)
+		
+	clear(clearpart)
+	sub(clearpart,setiTemp)
+
+	clear(clearpart+1)
+	sub(clearpart+1,setiTemp)
+
+	clear(setpart+1)
+	sub(setpart+1, setiTemp)
+	 
+	clear(setiTemp)
+	sub(setiTemp,val)
+
+	clearpart:
+	sub(addr, addr)
+	setpart:
+	sub(addr, setiTemp)
+ 	
+	jump(skip)
+		default_val: addr,
+	skip:
+}
+
+
 function writeInt(a)
 {
 	jump(skipLocals),
@@ -78,3 +134,110 @@ function _writeInt(pp){
 	endLoop:
 	write(count)
 }
+
+function testDivOld()
+{
+	!var i -5
+	!var j -5
+	!var t 0
+	!var t2 0
+	!var from -5
+	!var to 5
+	!var charMul 42
+	!var charDiv 47
+	!var equals 61
+	!var charOpenr 40
+	!var charCloser 41
+
+
+	set(i,from)
+	loop1:
+	iflte(i,to,else1)
+		set(j,from)
+		loop2:
+		iflte(j,to,else2)
+			writespInt(i)
+			writesp(charDiv)
+			writespInt(j)
+			writesp(equals)
+			div(i,j,t,t2)
+			writespInt(t)
+			write(charOpenr)
+			writeInt(t2)
+			write(charCloser)
+
+			writelnp()
+		inc(j)
+		jump(loop2)
+		else2:
+	inc(i)
+	jump(loop1)
+	else1:
+
+
+}
+
+function testMulOld()
+{
+	!var i -5
+	!var j -5
+	!var t 0
+	!var from -5
+	!var to 5
+	!var charMul 42
+	!var equals 61
+
+	set(i,from)
+	loop1:
+	iflte(i,to,else1)
+		set(j,from)
+		loop2:
+		iflte(j,to,else2)
+			writespInt(i)
+			writesp(charMul)
+			writespInt(j)
+			writesp(equals)
+			mul(i,j,t)
+			writeInt(t)
+			writelnp()
+		inc(j)
+		jump(loop2)
+		else2:
+	inc(i)
+	jump(loop1)
+	else1:
+}
+
+function push(par1,par2){
+	set(push+5, cb)
+	set(push+6, par1)
+	set(push+7, par2)
+
+	jump(push)
+	cb: comeback,
+	comeback:
+}
+
+ 
+
+function _push()
+{
+	jump(skipVars)
+		ret: jump(0),
+		stack: 0,
+		val: 0,
+		stackLen: 0,
+		t:0,
+	skipVars:
+
+	set(getLenPart,stack)
+	getLenPart:
+	sub(t,0)
+	sub(stackLen,t)
+
+
+
+	jump(ret)
+}
+
+ 

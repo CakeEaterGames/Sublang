@@ -19,6 +19,18 @@ function read(a)
     sub(a, temp)
 }
 
+function writeTimes(s,n)
+{
+	!var writeTimest 0
+	clear(writeTimest)
+	sub(writeTimest,n)
+	inc(writeTimest)
+
+	loop:
+		write(s)
+	incJump(writeTimest,loop)
+}
+
 function write(a)
 {
 	sub(-1,a)
@@ -58,6 +70,16 @@ function writeStrMacro(s)
 	//Reset the pointers
 	set(loop+1, startPtr)
 	set(loop+3, startPtr)
+}
+
+function getStrLen(s,out)
+{
+	//!getStrLenTemp
+	//set(getStrLenTemp,s)
+	//dec(getStrLenTemp)
+	
+	!var n1 -1
+	geti(s,n1,out)
 }
 
 function writeStr(s)

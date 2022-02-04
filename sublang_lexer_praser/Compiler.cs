@@ -239,6 +239,10 @@ namespace Sublang
             Name = name;
             this.paramCnt = paramCnt;
         }
+        public override string ToString()
+        {
+            return String.Format("{0} : {1} parameters ", Name, paramCnt);
+        }
     }
 
     public class sbFunction
@@ -742,7 +746,7 @@ namespace Sublang
                 result.Append(n.Tokens[0].Value);
                 result.Append(" ");
             }
-            Console.WriteLine(result);
+            //Console.WriteLine(result);
         }
 
         public StringBuilder result = new StringBuilder();
