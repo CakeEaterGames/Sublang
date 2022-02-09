@@ -45,6 +45,9 @@
   <ItemGroup>
     <Compile Include="Compiler.cs" />
     <Content Include="Finished\fibonachi.txt" />
+    <Content Include="Finished\megaTest.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Finished\multiplication.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

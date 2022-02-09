@@ -152,48 +152,7 @@ A compiler should also return an object with all label locations and values to w
 */
 
 /*
-    Testing program
 
-    ##########################################################################
-    #                                                                        #
-    #   Hello! I am the Subleq testing program.                              #
-    #   I will now test your interpreter by pefrorming various operations.   #
-    #                                                                        #
-    ##########################################################################
-
-    Test 1:
-    ASCII table printing
-    .....    
-
-    Test 2:
-    Subtraction
-    a-b=c
-    .....
-
-    Test 3:
-    Addition
-    a+b=c
-    .....
-
-    Test 4:
-    Multiplication
-    a*b=c
-    .....
-        
-    Test 5:
-    Division
-    a/b=c (d)
-    .....
-
-    Test 7:
-    Integer overflow
-
-    Test 6:
-    Random number generation
-
-    Test:
-    Requrcive functions
-    Calculating the Fibonacci sequence (Without memoisation)
 
     Test:
     Input
