@@ -104,3 +104,96 @@ function pop(val)
 {
 	pop(_stack,val)
 }
+
+
+function copyArea(start,len,dest)
+{
+	set(copyArea+5, cb)
+	set(copyArea+6, start)
+	set(copyArea+7, len)
+	set(copyArea+8, dest)
+
+	jump(copyArea)
+	cb: comeback,
+	comeback:
+}
+
+function _copyArea()
+{
+	jump(skipVars)
+		ret: jump(0),
+		start: 0,
+		len: 0,
+		dest: 0,
+		temp: 0,
+		i:0,
+	skipVars:
+	
+	set(getPart,start)
+	set(clearPart,dest)
+	set(clearPart+1,dest)
+	set(setPart+1,dest)
+	
+	clear(i)
+	sub(i,len)
+	inc(i)
+
+	loop:
+		clear(temp)
+
+		getPart:
+		sub(temp,0)
+	
+		clearPart:
+		clear(0)
+	
+		setPart:
+		sub(0,temp)
+	
+		inc(getPart)
+		inc(clearPart)
+		inc(clearPart+1)
+		inc(setPart+1)
+	incJump(i,loop)
+
+	jump(ret)
+}
+
+
+function clearArea(start,len)
+{
+	set(clearArea+5, cb)
+	set(clearArea+6, start)
+	set(clearArea+7, len)
+
+	jump(clearArea)
+	cb: comeback,
+	comeback:
+}
+
+function _clearArea()
+{
+	jump(skipVars)
+		ret: jump(0),
+		start: 0,
+		len: 0,
+		i:0,
+	skipVars:
+	
+	set(clearPart,start)
+	set(clearPart+1,start)
+	
+	clear(i)
+	sub(i,len)
+	inc(i)
+
+	loop:	
+		clearPart:
+		clear(0)
+ 
+		inc(clearPart)
+		inc(clearPart+1)
+	incJump(i,loop)
+
+	jump(ret)
+}
