@@ -60,7 +60,7 @@ function writeStrMacro(s)
 
 	//Main loop
 	loop:
-		subleq(s,zero,end)
+		subleq(zero,s,end)
 		write(s)
 		sub(loop+1,n1)
 		sub(loop+3,n1)
@@ -119,8 +119,8 @@ function _writeStr()
 
 	//Main loop
 	loop:
-		subleq(0,zero,ret)
-		write(0)
+		subleq(zero,startPtr,ret)
+		write(startPtr)
 		sub(loop+1,n1)
 		sub(loop+3,n1)
 	jump(loop)
@@ -182,7 +182,7 @@ function readInt(a)
 
 	end:
 	
-	subleq(isNeg,zero,asd)
+	busleq(isNeg,zero,asd)
 	neg(intSum)
 	asd:
 
@@ -287,4 +287,54 @@ function __writeInt(pp){
 		jump(loop)
 	endLoop:
 	write(count)
+}
+
+
+
+function readLine(){
+	set(readLine+5, cb)
+
+	jump(readLine)
+	cb: comeback,
+	comeback:
+}
+
+function _readLine()
+{
+	jump(skipVars)
+		ret: jump(0),
+		c: 0,
+		nl: -10,
+		overflowmsg: _overflowmsg,
+		_overflowmsg: !stringz "Error: Input buffer overflow",
+	skipVars:
+ 
+	set(here, input_buffer_ed)
+	set(here+1, input_buffer_ed)
+	set(here+4, input_buffer_ed)
+
+	loop:
+		clear(c)
+		sub(c,-1)
+		jeq(c,nl,done)
+		
+		here:
+		subleq(0,0)
+		subleq(c,0)
+		
+		inc(here)
+		inc(here+1)
+		inc(here+4)
+		inc(input_buffer_ed)
+		inc(input_buffer_len)
+
+		ifgte(input_buffer_len, input_buffer_max_len, else)
+			writeStr(overflowmsg)
+			jump(-1)
+		else:
+
+		jump(loop)
+	done:
+
+	jump(ret)
 }

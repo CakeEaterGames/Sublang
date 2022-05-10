@@ -86,6 +86,80 @@ function _seti()
 }
 
 
+
+
+//Access the main memory of the program
+//Equivalent to _return1 = code[ptr]
+
+function memGet(ptr,out){
+	set(memGet+5, cb)
+	set(memGet+6, ptr)
+
+	jump(memGet)
+	cb: comeback,
+	comeback:
+	set(out,_return1)
+}
+
+function _memGet()
+{
+	jump(skipVars)
+		ret: jump(0),
+		ptr: 0,
+		t: 0,
+	skipVars:
+
+	clear(t)
+	set(here,ptr)
+
+	here:
+	subleq(0,t)
+	clear(_return1)
+	sub(_return1,t)
+
+	jump(ret)
+}
+
+//Access the main memory of the program
+//Equivalent to code[ptr] = val
+
+function memSet(ptr,val){
+	set(memSet+5, cb)
+	set(memSet+6, ptr)
+	set(memSet+7, val)
+
+	jump(memSet)
+	cb: comeback,
+	comeback:
+}
+
+function _memSet()
+{
+	jump(skipVars)
+		ret: jump(0),
+		ptr: 0,
+		a: 0,
+		t: 0,
+	skipVars:
+
+	set(clr,ptr)
+	set(clr+1,ptr)
+	set(here+1,ptr)
+
+	clr:
+	subleq(0,0)
+	
+	clear(t)
+	sub(t,a)
+
+	here:
+	subleq(t,0)
+
+	jump(ret)
+}
+
+
+
 function push(stack,val)
 {
 	inc(stack)

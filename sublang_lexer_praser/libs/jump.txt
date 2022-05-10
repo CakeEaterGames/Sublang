@@ -12,11 +12,11 @@ function jeq0(a,label)
 
 	clear(jtemp)
 	sub(jtemp,a)
-	subleq(jtemp,zero,good)
+	busleq(jtemp,zero,good)
 	jump(skip)
 	good:
 
-	subleq(jtemp,n1,skip)
+	busleq(jtemp,n1,skip)
 	jump(label)
 
 	skip:
@@ -28,10 +28,10 @@ function jneq0(a,label)
 
 	clear(jtemp)
 	sub(jtemp,a)
-	subleq(jtemp,zero,good)
+	busleq(jtemp,zero,good)
 	jump(label)
 	good:
-	subleq(jtemp,n1,label)
+	busleq(jtemp,n1,label)
 
 }
 
@@ -42,11 +42,11 @@ function jlt0(a,label)
 
 	clear(jtemp)
 	sub(jtemp,a)
-	subleq(jtemp,zero,good)
+	busleq(jtemp,zero,good)
 	jump(label)
 	good:
 
-	subleq(jtemp,p1,skip)
+	busleq(jtemp,p1,skip)
 	jump(label)
 	skip:
 }
@@ -57,11 +57,11 @@ function jgte0(a,label)
 
 	clear(jtemp)
 	sub(jtemp,a)
-	subleq(jtemp,zero,good)
+	busleq(jtemp,zero,good)
 	jump(skip)
 	good:
 
-	subleq(jtemp,p1,label)
+	busleq(jtemp,p1,label)
 	skip:
 }
 
@@ -69,12 +69,12 @@ function jgte0(a,label)
 function jlte0(a,label)
 {
 	!var zero 0
-	subleq(a,zero,label)
+	busleq(a,zero,label)
 }
 function jgt0(a,label)
 {
 	!var zero 0
-	subleq(a,zero,skip)
+	busleq(a,zero,skip)
 	jump(label)
 	skip:
 }
@@ -91,10 +91,10 @@ function jeq(a,b,label)
 	clear(jtemp2)
 	sub(jtemp2,b)
 
-	subleq(jtemp2,jtemp,good)
+	busleq(jtemp2,jtemp,good)
 	jump(bad)
 	good:
-	subleq(jtemp2,n1,bad)
+	busleq(jtemp2,n1,bad)
 	jump(label)
 	bad:
 }
@@ -109,10 +109,10 @@ function jneq(a,b,label)
 	clear(jtemp2)
 	sub(jtemp2,b)
 
-	subleq(jtemp2,jtemp,good)
+	busleq(jtemp2,jtemp,good)
 	jump(label)
 	good:
-	subleq(jtemp2,n1,label)
+	busleq(jtemp2,n1,label)
 }
 function jgt(a,b,label)
 {
@@ -125,7 +125,7 @@ function jgt(a,b,label)
 	clear(jtemp2)
 	sub(jtemp2,b)
 
-	subleq(jtemp2,jtemp,skip)
+	busleq(jtemp2,jtemp,skip)
 	jump(label)
 	skip:
 }
@@ -140,7 +140,7 @@ function jlt(a,b,label)
 	clear(jtemp2)
 	sub(jtemp2,b)
 
-	subleq(jtemp,jtemp2,skip)
+	busleq(jtemp,jtemp2,skip)
 	jump(label)
 	skip:
 }
@@ -154,7 +154,7 @@ function jlte(a,b,label)
 	clear(jtemp2)
 	sub(jtemp2,b)
 
-	subleq(jtemp2,jtemp,label)
+	busleq(jtemp2,jtemp,label)
 }
 function jgte(a,b,label)
 {
@@ -166,7 +166,7 @@ function jgte(a,b,label)
 	clear(jtemp2)
 	sub(jtemp2,b)
 
-	subleq(jtemp,jtemp2,label)
+	busleq(jtemp,jtemp2,label)
 }
 
 

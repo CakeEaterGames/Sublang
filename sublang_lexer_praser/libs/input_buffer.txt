@@ -1,0 +1,15 @@
+﻿
+input_buffer_origin:     _input_buffer,
+input_buffer_st:         _input_buffer,
+input_buffer_ed:         _input_buffer,
+	
+input_buffer_max_len:   100,
+input_buffer_len:        0,
+
+_input_buffer: !zeroes 100,
+
+input_buffer_is_int: 0,
+input_buffer_is_available: 0,
+input_buffer_int: 0,
+input_buffer_str: _input_buffer_str,
+_input_buffer_str: !zeroes 100,

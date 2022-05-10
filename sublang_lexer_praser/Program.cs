@@ -78,7 +78,7 @@ namespace Sublang
             cout.Close();
            
 
-            //StreamReader sr = new StreamReader("badAppleSubleq.txt");
+            //StreamReader sr = new StreamReader("badApplesubleq.txt");
             //var compiled = sr.ReadToEnd();
 
             VM vm = new VM();
@@ -105,10 +105,10 @@ namespace Sublang
                 {
                     vm.inputs.Enqueue(c);
                 }
-                
+                vm.inputs.Enqueue('\n');
                 //vm.inputs.Enqueue(0);
                 //Thread.Sleep(27);
-              
+
             }
         }
     }

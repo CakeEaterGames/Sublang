@@ -1,0 +1,162 @@
+﻿// malloc(n) reserves n cells in the heap by setting the reserved flags to 1 and returns a pointer to the first reserved cell
+// also
+// ptr-2 is set to the first occipied page
+// ptr-1 is set to cell count
+
+function malloc(len,out){
+	set(malloc+5, cb)
+	set(malloc+6, len)
+
+	jump(malloc)
+	cb: comeback,
+	comeback:
+	set(out,_return1)
+}
+
+function _malloc()
+{
+	jump(skipVars)
+		ret: jump(0),
+		l: 0,
+		pagesNeeded: 0,
+		rem: 0,
+		freePages: 0,
+		v:0,
+		i:0,
+		realPtr:0,
+		firstPage: 0,
+	skipVars:
+	
+	!var n2 -2
+	!var p2 2
+
+	sub(l,n2)
+
+	//Calculate how many pages are needed
+
+	clear(pagesNeeded)
+	div(l,pageSize,pagesNeeded,rem)
+
+	jeq0(rem,skipInc)
+		inc(pagesNeeded)
+	skipInc:
+
+	clear(freePages)
+	sub(l,p2)
+
+	//set the pointer to the start of the "reserved" array
+	
+	set(heapPtr, heap_is_reserved)
+	
+	sLoop:
+		memGet(heapPtr,v)
+
+		//if the current page is free
+		ifeq0(v,selse)
+			inc(freePages)
+			jump(send)
+		selse:
+			clear(freePages)
+		send:
+
+		jeq(freePages,pagesNeeded,found)
+		inc(heapPtr)
+		jump(sLoop)
+	found:
+
+	//if free pageCount is equal to PagesNeeded
+	//start another loop from the pointer location but backwards
+	//set the page flag to 1
+
+	set(i,freePages)
+
+	//writeInt(i)
+
+	rLoop:
+		memSet(heapPtr,p1)
+		dec(i)
+		dec(heapPtr)
+		jgt0(i,rLoop)
+	done:
+	inc(heapPtr)
+	
+	
+	sub(heapPtr, heap_is_reserved)
+	set(firstPage, heapPtr)
+
+	//writeln()
+	//writeInt(heapPtr)
+	//writeln()
+
+	mul(heapPtr, pageSize, realPtr)
+	add(realPtr, heap, realPtr)
+
+	memSet(realPtr, firstPage)
+	inc(realPtr)
+	memSet(realPtr, l)
+	inc(realPtr)
+	set(_return1, realPtr)
+
+	//if pages needed is 0 break
+	//set heap[pointer] to first page
+	//set heap[pointer+1] to l 
+	//return pointer+3
+
+	jump(ret)
+}
+
+
+function free(obj){
+	set(free+5, cb)
+	set(free+6, obj)
+
+	jump(free)
+	cb: comeback,
+	comeback:
+}
+
+function _free()
+{
+	jump(skipVars)
+		ret: jump(0),
+		loc: 0,
+		l: 0,
+		firstPage: 0,
+		pagesNeeded: 0,
+		rem:0,
+		realPtr:0,
+	skipVars:
+
+	dec(loc)
+	memGet(loc,l)
+	dec(loc)
+	memGet(loc,firstPage)
+
+	!var n2 -2
+	!var p2 2
+
+	sub(l,n2)
+	
+	//Calculate how many pages are needed
+
+	div(l,pageSize,pagesNeeded,rem)
+	jeq0(rem,skipInc)
+		inc(pagesNeeded)
+	skipInc:
+
+	//Now you have
+	//the first page of the obj
+	//page count
+
+	//get the real ptr
+	add(heap_is_reserved,firstPage,realPtr)
+
+	loop:
+		memSet(realPtr,zero)
+		inc(realPtr)
+		dec(pagesNeeded)
+		jgt0(pagesNeeded,loop)
+
+
+	jump(ret)
+}

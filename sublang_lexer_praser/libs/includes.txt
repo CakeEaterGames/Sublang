@@ -5,3 +5,4 @@
 !include "libs/arrays.txt"
 !include "libs/functions.txt"
 !include "libs/rng.txt"
+!include "libs/malloc.txt"

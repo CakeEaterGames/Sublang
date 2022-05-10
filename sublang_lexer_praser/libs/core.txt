@@ -1,9 +1,19 @@
-﻿function subleq(a, b)
+﻿function subleq(a,b,c)
+{
+	a,b,c
+}
+function subleq(a,b)
+{
+	a,b,?+1
+}
+
+
+function busleq(a, b)
 {
     b,a,?+1
 }
 
-function subleq(a, b, c)
+function busleq(a, b, c)
 {
     b, a, c
 }

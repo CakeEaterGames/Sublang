@@ -1,6 +1,5 @@
 ﻿!include "libs/includes.txt"
- 
- 
+
 
 function main()
 {
@@ -11,35 +10,74 @@ function main()
 		div: _div(),
 		geti: _geti(),
 		seti: _seti(),
+		memGet: _memGet(),
+		memSet: _memSet(),
 		rngNext: _rngNext(),
 		rngNext2: _rngNext2(),
 		copyArea: _copyArea(),
 		clearArea: _clearArea(),
+		readLine: _readLine(),
+		malloc: _malloc(),
+		free: _free(),
 	skipFuncs:
- 
-	!var p3 3
-	copyArea(testStruct,p3,here) 
-  
-	writelnInt(_here)
-	writelnInt(_here+1)
-	writelnInt(_here+2)
+	
+	!var len 5
+	!var obj1 0
+	!var obj2 0
+	!var obj3 0
+	!var obj4 0
+	
+	malloc(len,obj1)
+	writeInt(obj1)
+	writeln()
+	
+	malloc(len,obj2)
+	writeInt(obj2)
+	writeln()
 
-	clearArea(here,p3) 
-  
-	writelnInt(_here)
-	writelnInt(_here+1)
-	writelnInt(_here+2)
+	free(obj1)
+
+	!var p10 10
+	set(len,p10)
+
+	malloc(len,obj3)
+	writeInt(obj3)
+	writeln()
+
+	!var p5 5
+	set(len,p5)
+
+	malloc(len,obj4)
+	writeInt(obj4)
+	writeln()
+
+	//What I want to get
+	//array(arr,p3)
+	//arraySet(arr,p0,a)
+	//arraySet(arr,p1,b)
+	//arraySet(arr,p2,c)
+	//arrayGet(arr,p2,a)
+	//free(arr)
+
+	//list(arr)
+	//listAdd(arr,a)
+	//listAdd(arr,b)
+	//listAdd(arr,c)
+	//listGet(arr,p2,a)
+	//free(arr)
+
+	//string(s,l)
+	//split(s,nl,arr)
+	//arrayGet(arr,p0,a)
+	//writeStr(a)
 
 	jump(-1)
 	
 	!vars_location
 	
-	testStruct: _testStruct,
-	_testStruct: 10,20,30,
-
-	here: _here,
-	_here: 1, 2, 3,
-
+	!include "libs/input_buffer.txt"
+	!include "libs/heap_vars.txt"
+ 
 	_stack: _mainStack,
 	_mainStack: 0,
 	!zeroes 250

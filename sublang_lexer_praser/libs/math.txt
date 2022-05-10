@@ -92,7 +92,7 @@ function dec(a)
 function incJump(i,label)
 {
 	!var n1 -1
-	subleq(i,n1,label)
+	busleq(i,n1,label)
 }
 
 function swap(a,b)
