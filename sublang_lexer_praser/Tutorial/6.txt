@@ -1,0 +1,19 @@
+﻿If your program will have a lot of functions you can use the !include keyword to store their code in different files
+
+file "a.txt":
+  function subleq(a,b,c)
+  {
+    a,b,c
+  }
+
+Input:
+  !include "a.txt"
+  function main()
+  {
+    subleq(1,2,3)
+  }
+Output:
+  1,2,3
+
+Warning
+!include is not as optimised as it can be. Avoid including fines with long lines. (thousands of characters long)

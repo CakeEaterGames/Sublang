@@ -89,7 +89,7 @@ function _seti()
 
 
 //Access the main memory of the program
-//Equivalent to _return1 = code[ptr]
+//Equivalent to out = code[ptr]
 
 function memGet(ptr,out){
 	set(memGet+5, cb)

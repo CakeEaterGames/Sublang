@@ -1,0 +1,24 @@
+﻿Compiles a Sublang program into Subleq code
+
+sublang.exe -i InputFilePath [-o OutputFilePath] [-p] [-c] [-r] [h [page]]
+
+-h [page] prints pages of a tutorial on how to write programs in Sublang
+-i InputFilePath Read program from this file
+-o OutputFilePath Write the result to this file
+-c Compile the input file first
+-p Print the compiled code to the console
+-r Run the program
+
+Examples:
+
+  sublang.exe -i input.txt -o output.txt -c -r
+
+Reads a Sublang program from input.txt, compiles it into subleq, writes the result program into output.txt, and runs the compiled program
+
+  sublang.exe -i input.txt -r
+
+Reads a COMPILED program from input.txt and runs it
+
+  sublang.exe -i input.txt -c -p -r
+
+Reads a Sublang program from input.txt, compiles it into subleq, prints the result to console and runs the program

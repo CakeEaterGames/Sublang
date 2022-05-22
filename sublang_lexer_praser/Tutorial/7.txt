@@ -1,0 +1,80 @@
+﻿Here's an example of a simple Sublang program that prints "Hello World" 3 times
+It is a little bit intentionally over engineered to demonstrate all commonly used features
+
+Input:
+  function subleq(a,b,c)
+  {
+    a,b,c
+  }
+  function subleq(a,b)
+  {
+    a,b,?+1
+  }
+  function sub(a,b)
+  {
+    //a-=b
+    //This is just for preference
+    subleq(b,a)
+  }
+  function set(a,b)
+  {
+    //a=b
+    !var temp 0
+    clear(a)
+    clear(temp)
+    sub(temp,b)
+    sub(a,temp)
+  }
+  function clear(a)
+  {
+    //a=0
+    sub(a,a)
+  }
+  function jump(a)
+  {
+    !var zero 0
+    subleq(zero,zero,a)
+  }
+  function print(str)
+  {
+    set(loop+1,str)         //Set the pointers to the start of the string
+    set(loop+3,str)
+
+    !var n1 -1
+    loop:
+      subleq(zero,str,end)  //Check if string ended
+      subleq(str,io)        //Print the char to console
+      sub(loop+1,n1)        //Increment the string pointer in the first loop line (str)
+      sub(loop+3,n1)        //Increment the string pointer in the second loop line
+      jump(loop)            //Continue the loop
+  }
+
+  function main()
+  {
+    !define io -1
+    !define halt -1
+  
+    !var zero 0             
+    !var n1 -1
+    !var cnt -2
+
+    loop:
+      print(helloPtr)       //Call our print function in a loop          
+      subleq(n1,cnt,loop)   //Add 1 to cnt. If cnt>0 then don't continue the loop
+
+    jump(halt)              //End the program. 
+    
+    !vars_location          //n1 and zero will be placed here
+  
+  
+    hello:                     //This lable points to the start of the string
+    !stringz "Hello World!\n",
+    helloPtr: hello,           //This lable points to the lable
+                               //that points to start of the string
+  }
+Output:
+  25 25 3 48 48 6 49 48 9 48 25 12 27 27 15 48 48 18 49 48 21 48 27 24 45 49 39 49 -1 30 46 25 33 46 27 36 45 45 24 46 47 0 45 45 -1 0 -1 -2 0 50 72 101 108 108 111 32 87 111 114 108 100 33 10 0
+Run result:
+  Hello World!
+  Hello World!
+  Hello World!

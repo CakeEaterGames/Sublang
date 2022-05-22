@@ -1,0 +1,60 @@
+﻿An empty Sublang program looks like this
+
+Input:
+  function main()
+  {
+    //This is a comment
+  }
+Output:
+  
+
+A Sublang function is a set of numbers that can be copied and pasted.
+Here is how to create and use a new function.
+
+Input:
+  function Test()
+  {
+    1,2,
+    3,4
+  }
+  function main()
+  {
+    Test()
+    Test()
+  }
+Output:
+  1 2 3 4 1 2 3 4
+
+But you can also use arguments in your functions
+
+Input:
+  function Test(a,b)
+  {
+    a,b,b,100
+  }
+  function main()
+  {
+    Test(1,2)
+    Test(11,22)
+  }
+Output:
+  1 2 2 100 11 22 22 100
+
+Functions can be overloaded
+
+Input:
+  function Test(a,b)
+  {
+    a,b
+  }
+  function Test(a)
+  {
+    a,a,a
+  }
+  function main()
+  {
+    Test(1,2)
+    Test(3)
+  }
+Output:
+  1 2 3 3 3

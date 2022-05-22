@@ -51,6 +51,15 @@
     <Content Include="Finished\multiplication.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Tutorial\3.txt" />
+    <EmbeddedResource Include="Tutorial\4.txt" />
+    <EmbeddedResource Include="Tutorial\5.txt" />
+    <EmbeddedResource Include="Tutorial\6.txt" />
+    <EmbeddedResource Include="Tutorial\7.txt" />
+    <EmbeddedResource Include="Tutorial\1 - Copy %284%29.txt" />
+    <EmbeddedResource Include="Tutorial\2.txt" />
+    <EmbeddedResource Include="Tutorial\1.txt" />
+    <EmbeddedResource Include="help.txt" />
     <Content Include="libs\functions.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

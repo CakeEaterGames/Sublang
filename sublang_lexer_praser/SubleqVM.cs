@@ -19,6 +19,8 @@ namespace Sublang
         public bool pause = false;
         public bool done = false;
 
+        public bool immedeateOutput = true;
+
         public void SetProgram(string inp)
         {
             inp = inp.Replace("\r", " ").Replace("\n", " ");
@@ -71,15 +73,27 @@ namespace Sublang
                         pause = true;
                         break;
                     }
-                    //Console.Write((char)inputs.Dequeue());
-                    outputs.Enqueue(inputs.Dequeue());
+                    if (immedeateOutput)
+                    {
+                        Console.Write((char)inputs.Dequeue());
+                    }
+                    else
+                    {
+                        outputs.Enqueue(inputs.Dequeue());
+                    }
                     pc += 3;
                 }
                 else if (A == -1)
                 {
-                    Console.Write((char)cell[B]);
-                    //Console.WriteLine(cell[B]);
-                    //outputs.Enqueue(cell[B]);
+                    if (immedeateOutput)
+                    {
+                        Console.Write((char)cell[B]);
+                    }
+                    else
+                    {
+                        outputs.Enqueue(cell[B]);
+                    }
+                   
                     pc += 3;
                 }
                 else if (B == -1)

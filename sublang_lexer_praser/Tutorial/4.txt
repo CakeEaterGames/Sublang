@@ -1,0 +1,33 @@
+﻿You can declare variables by using keywords !var and !vars_location
+
+Input:
+  function main()
+  {
+    !var zero 0
+    !var p1 1
+
+    zero,p1,n1,
+
+    !var n1 -1
+    !var n1 -1
+
+    !vars_location
+    //Before compilation the following lines will be inserted here
+    //zero:0,
+    //p1:1,
+    //n1:-1,
+  }
+Output:
+  3 4 5
+  0 1 -1
+
+You can also define constants without using !var or lables by using the !define keyword
+
+Input:
+  function main()
+  {
+    !define a 10
+    a,a,a
+  }
+Output:
+  10 10 10

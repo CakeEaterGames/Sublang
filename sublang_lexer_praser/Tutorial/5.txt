@@ -1,0 +1,30 @@
+﻿The follwing keywords can be used to convert ASCII strings into a sequence of their char codes
+
+Input:
+  function main()
+  {
+    a:
+    !string "Hi",
+    b:
+    !stringz "Hi",
+    c:
+    !stringl "Hi",
+    d:
+    !stringlz "Hi",
+  }
+Output:
+  72 105
+  72 105 0
+  2 72 105
+  2 72 105 0 
+
+
+To fill a region of cells with zeroes you can use !zeroes keyword
+
+Input:
+  function main()
+  {
+    !zeroes 5
+  }
+Output:
+  0 0 0 0 0

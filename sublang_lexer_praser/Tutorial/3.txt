@@ -1,0 +1,54 @@
+﻿Lables can be used as constants that point to memory cells:
+Lables can be used locally and globaly. Labels declared inside a function are prioritised over lables delared outside the function
+
+Input:
+  function main()
+  {
+    start:
+      0,1,2,
+      3,4,5,    
+      a,a,b,
+      start, start, start,
+    a:
+    b:
+      123,
+  }
+Output:
+  0 1 2
+  3 4 5
+  12 12 12
+  0 0 0
+  123
+
+There is a special lable '?' that is always set to the index of a cell that it is placed in
+
+Input:
+  function main()
+  {
+    ?,?,?
+  }
+Output:
+  0 1 2
+
+Arithmetic operators can be used to change cell values before compilation
+
+Input:
+  function main()
+  {
+    a,
+    a+1,
+    a-1,
+    a+5*2,
+    a+(10+1)*2,
+    a/2,
+
+    a:1000,
+  }
+Output:
+  6
+  7
+  5
+  16
+  28
+  3
+  1000

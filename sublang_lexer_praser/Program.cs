@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -11,18 +12,113 @@ namespace Sublang
 {
     class Program
     {
+        static bool toRun = false;
+        static bool toCompile = false;
+        static bool toPrint = false;
+        static string inputFilePath = "";
+        static string outputFilePath = "";
+
         static void Main(string[] args)
         {
+           
+
+            if (args.Length == 0)
+            {
+                var assembly = Assembly.GetExecutingAssembly();
+                var resourceName = "Sublang.help.txt";
+                Stream stream = assembly.GetManifestResourceStream(resourceName);
+                StreamReader reader = new StreamReader(stream);
+                string result = reader.ReadToEnd();
+
+                Console.WriteLine(result);
+
+#if DEBUG
+                 toRun = true;
+                 toCompile = true;
+                 toPrint = false;
+                 inputFilePath = "input.txt";
+                 outputFilePath = "output.txt";
+#endif
+
+            }
+            else
+            {
+
+                for (int i = 0; i < args.Length; i++)
+                {
+                    switch (args[i])
+                    {
+                        case "-c":
+                            toCompile = true;
+                            break;
+                        case "-p":
+                            toPrint = true;
+                            break;
+                        case "-r":
+                            toRun = true;
+                            break;
+                        case "-i":
+                            inputFilePath = args[i + 1];
+                            i++;
+                            break;
+                        case "-o":
+                            outputFilePath = args[i + 1];
+                            i++;
+                            break;
+                        case "-h":
+                            var page = int.Parse(args[i + 1]);
+                            i++;
+                            if (page>=1 && page<=7)
+                            { 
+                                var assembly = Assembly.GetExecutingAssembly();
+                                var resourceName = "Sublang.Tutorial."+page+".txt";
+                                Stream stream = assembly.GetManifestResourceStream(resourceName);
+                                StreamReader reader = new StreamReader(stream);
+                                string result = reader.ReadToEnd();
+
+                                Console.WriteLine(result);
+                                return;
+                            }
+                            else
+                            {
+                                Console.WriteLine("There is no tutorial with page "+page);
+                                return;
+                            }
+                            break;
+                        default:
+                            Console.WriteLine(String.Join(", ", args));
+                            throw new Exception("An error occured while reading the parameters");
+                            break;
+                    }
+                }
+
+
+            }
+
+            /*
+            -i InputFilePath Read program from this file
+            -o OutputFilePath Write the result to this file
+            -p Print the compiled code to the console
+            -c Compile the input file first
+            -r Run the program
+            */
+
+
             Program p = new Program();
-            Console.ReadLine();
+            
+
+            
         }
 
         public Program()
         {
-            var allCode = Includer.Init("input.txt");
- 
-            var defs = new TokenDefinition[]
+            string compiled = "";
+            if (toCompile)
             {
+                var allCode = Includer.Init(inputFilePath);
+
+                var defs = new TokenDefinition[]
+                {
                 new TokenDefinition(@"([""'])(?:\\\1|.)*?\1", TokenType.str),
                 new TokenDefinition(@"//.+?$", TokenType.comment),
                 //new TokenDefinition(@"//[^$]*[$]", TokenType.comment),
@@ -63,53 +159,72 @@ namespace Sublang
                 new TokenDefinition(@"\)", TokenType.closer),
 
                 new TokenDefinition(@"[\s\t]+", TokenType.space)
-            };
-       
-            TextReader r = new StringReader(allCode);
-            Lexer l = new Lexer(r, defs);
+                };
 
-            Compiler comp = new Compiler();
-            comp.Init(l.GetAllTokens());
-            var compiled = comp.result.ToString();
+                TextReader r = new StringReader(allCode);
+                Lexer l = new Lexer(r, defs);
 
-            StreamWriter cout = new StreamWriter("compiled.txt");
-            cout.Write(compiled);
-            cout.Flush();
-            cout.Close();
-           
+                Compiler comp = new Compiler();
+                comp.Init(l.GetAllTokens());
+                compiled = comp.result.ToString();
 
-            //StreamReader sr = new StreamReader("badApplesubleq.txt");
-            //var compiled = sr.ReadToEnd();
-
-            VM vm = new VM();
-
-            vm.SetProgram(compiled);
-            vm.Init();
-
-            while (!vm.done)
-            {
-                vm.Run();
-                StringBuilder outp = new StringBuilder();
-                while (vm.outputs.Count > 0)
+                if (outputFilePath != "")
                 {
-                    outp.Append((char)vm.outputs.Dequeue());
+                    StreamWriter cout = new StreamWriter(outputFilePath);
+                    cout.Write(compiled);
+                    cout.Flush();
+                    cout.Close();
                 }
-                /*
-                Console.CursorLeft = 0;
-                Console.CursorTop = 0;
-                */
-                Console.Write(outp);
-                
-                var inp = Console.ReadLine();
-                foreach (var c in inp)
-                {
-                    vm.inputs.Enqueue(c);
-                }
-                vm.inputs.Enqueue('\n');
-                //vm.inputs.Enqueue(0);
-                //Thread.Sleep(27);
 
+              
             }
+            else
+            {
+                StreamReader sr = new StreamReader(inputFilePath);
+                compiled = sr.ReadToEnd();
+            }
+
+            if (toPrint)
+            {
+                Console.WriteLine(compiled);
+            }
+
+            if (toRun)
+            {
+                VM vm = new VM();
+
+                vm.SetProgram(compiled);
+                vm.Init();
+
+                while (!vm.done)
+                {
+                    vm.Run();
+                    StringBuilder outp = new StringBuilder();
+                    while (vm.outputs.Count > 0)
+                    {
+                        outp.Append((char)vm.outputs.Dequeue());
+                    }
+                    /*
+                    Console.CursorLeft = 0;
+                    Console.CursorTop = 0;
+                    */
+                    Console.Write(outp);
+
+                    if (vm.done) break;
+
+                    var inp = Console.ReadLine();
+                    foreach (var c in inp)
+                    {
+                        vm.inputs.Enqueue(c);
+                    }
+                    vm.inputs.Enqueue('\n');
+                    //vm.inputs.Enqueue(0);
+                    //Thread.Sleep(27);
+
+                }
+            }
+
+          
         }
     }
 
@@ -151,17 +266,3 @@ TODO:
 A compiler should also return an object with all label locations and values to which they are pointing 
 */
 
-/*
-
-
-    Test:
-    Input
-    Please write a number followed by any character
-    double the number
-
-
-
-
-
-
-*/
