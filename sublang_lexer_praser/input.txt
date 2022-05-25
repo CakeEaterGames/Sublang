@@ -86,6 +86,30 @@ function _arraySet()
 	jump(ret)
 }
 
+ 
+ 
+//Sleep for ms
+function sleep(sec)
+{
+	jump(skipVars)
+		t: sec,
+		t2: t,
+		timer: 0,
+		delay: -30000,
+	skipVars:
+
+	memGet(t,t2)
+	
+	loop:
+		dec(t2)
+		set(timer,delay)
+		loop2:
+		incJump(timer,loop2)
+
+	jgt0(t2,loop)
+
+}
+
 function main()
 {
 	jump(skipFuncs)
@@ -117,91 +141,34 @@ function main()
 	!var p3 3
 	!var p4 4
 	!var p5 5
+	!var p1000 1000
 
+	!var a 32
+	!var s 0
 
-	newArray(p10,arr)
+	mul(#25,#-2,a)
 
-	arraySet(arr,p0,p0)
-	arraySet(arr,p1,p1)
-	arraySet(arr,p2,p2)
-
-	!var val 0
-	
-	arrayGet(arr,p0,val)
-	writelnInt(val)
-	arrayGet(arr,p1,val)
-	writelnInt(val)
-	arrayGet(arr,p2,val)
-	writelnInt(val)
-
-	free(arr)
-
-
-
-	writeln()
-
-
-
-
-	//split(stringPtr,sep,outArray)
-	//To split a string by a separator, first count how many separators are in that string
-	//Just loop through and count
-	//Create an array of that length
-	//Count the chars from start of a string untill separator
-	//Create a string(array?) of that length
-	//copy area from start of string to separator to new string
-	//append string pointer to array
-	//move the start of a string further
-	//repeat untill the end of string
-
-
-	//newListNode(val,out)
-	//creates a structure {val:a, next:zero}
-
-	//newListNode(p1,a)
-	//newListNode(p2,b)
-	//newListNode(p3,c)
-	//linkNodes(a,b)
-	//linkNodes(b,c)
-
-
-
-
-	newArray(p10,arr)
-
-	 	
-	arraySet(arr,p0,p3)
-	arraySet(arr,p1,p4)
-	arraySet(arr,p2,p5)
-
-	!var val 0
-		
-	arrayGet(arr,p0,val)
-	writelnInt(val)
-	arrayGet(arr,p1,val)
-	writelnInt(val)
-	arrayGet(arr,p2,val)
-	writelnInt(val)
+	writelnInt(a)
  
+	//loop:	
+	//	writelnStr(debugStr)
+	//	sleep(#32)
+		//read(s)
+		//write(s)
+
+
+	//jump(loop)
 
 
 
-	//list(arr)
-	//listAdd(arr,a)
-	//listAdd(arr,b)
-	//listAdd(arr,c)
-	//listGet(arr,p2,a)
-	//free(arr)
-
-	//string(s,l)
-	//split(s,nl,arr)
-	//arrayGet(arr,p0,a)
-	//writeStr(a)
-
+	read(temp)
 	jump(-1)
 	
 	!vars_location
 	
+	debugStr: _debugStr,
+	_debugStr: !stringz "debug",
+
 	!include "libs/input_buffer.txt"
 	!include "libs/heap_vars.txt"
  

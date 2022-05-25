@@ -29,8 +29,9 @@ namespace Sublang
                 Stream stream = assembly.GetManifestResourceStream(resourceName);
                 StreamReader reader = new StreamReader(stream);
                 string result = reader.ReadToEnd();
-
+                reader.Close();
                 Console.WriteLine(result);
+
 
 #if DEBUG
                  toRun = true;
@@ -38,6 +39,10 @@ namespace Sublang
                  toPrint = false;
                  inputFilePath = "input.txt";
                  outputFilePath = "output.txt";
+
+
+#else
+                return;
 #endif
 
             }
@@ -75,7 +80,7 @@ namespace Sublang
                                 Stream stream = assembly.GetManifestResourceStream(resourceName);
                                 StreamReader reader = new StreamReader(stream);
                                 string result = reader.ReadToEnd();
-
+                                reader.Close();
                                 Console.WriteLine(result);
                                 return;
                             }
@@ -139,6 +144,8 @@ namespace Sublang
 
                 new TokenDefinition(@",", TokenType.comma),
 
+                new TokenDefinition(@"#", TokenType.constVarDef),
+
                 new TokenDefinition(@"\d+", TokenType.number),
                 new TokenDefinition(@"\+", TokenType.plus),
                 new TokenDefinition(@"\-", TokenType.minus),
@@ -182,13 +189,21 @@ namespace Sublang
             {
                 StreamReader sr = new StreamReader(inputFilePath);
                 compiled = sr.ReadToEnd();
+                sr.Close();
             }
 
             if (toPrint)
             {
                 Console.WriteLine(compiled);
             }
-
+            /*
+            while (true)
+            {
+                var a =Keyboard.GetDownKeys();
+                Console.WriteLine(String.Join(", ",a));
+                Thread.Sleep(1);
+            }
+            */
             if (toRun)
             {
                 VM vm = new VM();
@@ -212,12 +227,16 @@ namespace Sublang
 
                     if (vm.done) break;
 
+                    /*
                     var inp = Console.ReadLine();
+                    
                     foreach (var c in inp)
                     {
                         vm.inputs.Enqueue(c);
                     }
-                    vm.inputs.Enqueue('\n');
+                    */
+                    vm.inputs.Enqueue(Console.ReadKey().KeyChar);
+                    //vm.inputs.Enqueue('\n');
                     //vm.inputs.Enqueue(0);
                     //Thread.Sleep(27);
 
@@ -237,6 +256,7 @@ namespace Sublang
 
             StreamReader sr = new StreamReader(filename);
             string text = sr.ReadToEnd();
+            sr.Close();
 
             int incPos = text.IndexOf("!include");
             while (incPos>=0)
@@ -247,6 +267,7 @@ namespace Sublang
                 //Console.WriteLine(fname);
                 StreamReader sr2 = new StreamReader(fname);
                 var inc = sr2.ReadToEnd();
+                sr2.Close();
                 text = text.Substring(0, incPos) + inc + text.Substring(end+1);
                 //Console.WriteLine(text);
 

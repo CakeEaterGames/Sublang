@@ -61,6 +61,7 @@ namespace Sublang
         varDef,
         varsLocation,
         zeroesDef,
+        constVarDef,
     }
 
     //A group of tokens that all exist in one cell of the final program 
@@ -84,6 +85,7 @@ namespace Sublang
                 case TokenType.closer:
                 case TokenType.pointerNext:
                 case TokenType.pointer:
+                case TokenType.constVarDef:
                     isSimple = false;
                     break;
                 case TokenType.number:
@@ -328,6 +330,20 @@ namespace Sublang
                                 }
                                 else
                                 {
+                                    if(cur.Type == TokenType.constVarDef)
+                                    {
+                                        cur = raw[++i];
+                                        string v = cur.Value;
+                                        string c = "p" + v;
+                                        if (v == "-")
+                                        {
+                                            cur = raw[++i];
+                                            v = "-" + cur.Value;
+                                            c = "n" + v;
+                                        }
+                                        comp.vars[c] = int.Parse(v);
+                                        cur = new Token(c, TokenType.word, 0, 0);
+                                    }
                                     par.Add(replaceConsts(cur));
                                     cur = raw[++i];
                                 }
@@ -453,6 +469,25 @@ namespace Sublang
                         }
                         break;
 
+                    case TokenType.constVarDef:
+                        {
+                            cur = raw[++i];
+                            string v = cur.Value;
+                            string c = "p" + v;
+                            if (v == "-")
+                            {
+                                cur = raw[++i];
+                                v = "-" + cur.Value;
+                                c = "n" + v;
+                            }
+                            comp.vars[c] = int.Parse(v);
+
+                            TokenGroup tg = new TokenGroup();
+                            tg.Add(new Token(c, TokenType.word, 0, 0));
+                            code.Add(tg);
+                        }
+                        break;
+
                     case TokenType.varsLocation:
                         {
  
@@ -566,6 +601,7 @@ namespace Sublang
             return t;
         }
 
+        /*
         //This is called when another function wants to insert this function into itself
         Dictionary<string, TokenGroup> evalParams;
         int evalPos = 0;
@@ -575,6 +611,7 @@ namespace Sublang
             evalParams = new Dictionary<string, TokenGroup>();
             evalDone = false;
         }
+        
 
         //Check if the current token groups has function params inside it
         //If it does create and return new TokenGroup where those params are replaced with their values
@@ -582,6 +619,8 @@ namespace Sublang
         {
             return null;
         }
+        */
+
 
         public void ReplacePointers()
         {
@@ -633,8 +672,10 @@ namespace Sublang
                         case TokenType.mod:
                         case TokenType.openr:
                         case TokenType.closer:
+                        //case TokenType.constVarDef:
                             break;
                         default:
+                            Console.WriteLine(String.Join(", ",tg.Tokens));
                             throw new Exception("Unexpected token "+t);
                              
                     }
