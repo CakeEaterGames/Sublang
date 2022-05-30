@@ -227,16 +227,16 @@ namespace Sublang
 
                     if (vm.done) break;
 
-                    /*
+                    
                     var inp = Console.ReadLine();
                     
                     foreach (var c in inp)
                     {
                         vm.inputs.Enqueue(c);
                     }
-                    */
-                    vm.inputs.Enqueue(Console.ReadKey().KeyChar);
-                    //vm.inputs.Enqueue('\n');
+                    
+                    //vm.inputs.Enqueue(Console.ReadKey().KeyChar);
+                    vm.inputs.Enqueue('\n');
                     //vm.inputs.Enqueue(0);
                     //Thread.Sleep(27);
 

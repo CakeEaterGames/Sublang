@@ -1,0 +1,21 @@
+﻿//Sleep for ms
+function sleep(sec)
+{
+	jump(skipVars)
+		t: sec,
+		t2: t,
+		timer: 0,
+		delay: -30000,
+	skipVars:
+
+	memGet(t,t2)
+	
+	loop:
+		dec(t2)
+		set(timer,delay)
+		loop2:
+		incJump(timer,loop2)
+
+	jgt0(t2,loop)
+
+}

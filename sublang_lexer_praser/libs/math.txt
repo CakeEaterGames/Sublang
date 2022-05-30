@@ -226,6 +226,118 @@ function div(a,b)
 	comeback:
 	set(a,_return1)
 }
+
+function toBin(val, save){
+	set(toBin+5, cb)
+	set(toBin+6, val)
+	set(toBin+7, save)
+
+	jump(toBin)
+	cb: comeback,
+	comeback:
+}
+
+function binHelp(val,pow,save)
+{
+	!var binTemp 0
+	clear(binTemp)
+	ifgte(val,pow,else)
+		inc(binTemp)
+		sub(val,pow)
+	else:
+
+	memSet(save,binTemp)
+	inc(save)
+
+}
+
+function _toBin()
+{
+	jump(skipVars)
+		ret: jump(0),
+		val: 0,
+		save: 0,
+	skipVars:
+
+	binHelp(val,#1073741824,save)
+	binHelp(val,#536870912,save)
+	binHelp(val,#268435456,save)
+	binHelp(val,#134217728,save)
+	binHelp(val,#67108864,save)
+	binHelp(val,#33554432,save)
+	binHelp(val,#16777216,save)
+	binHelp(val,#8388608,save)
+	binHelp(val,#4194304,save)
+	binHelp(val,#2097152,save)
+	binHelp(val,#1048576,save)
+	binHelp(val,#524288,save)
+	binHelp(val,#262144,save)
+	binHelp(val,#131072,save)
+	binHelp(val,#65536,save)
+	binHelp(val,#32768,save)
+	binHelp(val,#16384,save)
+	binHelp(val,#8192,save)
+	binHelp(val,#4096,save)
+	binHelp(val,#2048,save)
+	binHelp(val,#1024,save)
+	binHelp(val,#512,save)
+	binHelp(val,#256,save)
+	binHelp(val,#128,save)
+	binHelp(val,#64,save)
+	binHelp(val,#32,save)
+	binHelp(val,#16,save)
+	binHelp(val,#8,save)
+	binHelp(val,#4,save)
+	binHelp(val,#2,save)
+	binHelp(val,#1,save)
+
+	jump(ret)
+}
+
+function writeBin(addr){
+	set(writeBin+5, cb)
+	set(writeBin+6, addr)
+
+	jump(writeBin)
+	cb: comeback,
+	comeback:
+}
+
+function _writeBin()
+{
+	jump(skipVars)
+		ret: jump(0),
+		a: 0,
+		i: -30,
+		t:0,
+	skipVars:
+
+	set(loop,a)
+
+	loop:
+		subleq(9999,t)
+		inc(loop)
+		neg(t)
+		add(t,#48)
+		write(t)
+		clear(t)
+	subleq(#-1,i,loop)
+
+	writeln()
+	jump(ret)
+}
+
+function mul2(a)
+{
+	!var temp 0
+	clear(temp)
+	sub(temp,a)
+	sub(temp,a)
+	clear(a)
+	sub(a,temp)
+}
+
+
 function _div()
 {
 	jump(skipVars)
@@ -235,6 +347,13 @@ function _div()
 		c: 0,
 		neg: 0,
 		neg1: 0,
+		ptr: 0, 
+		digits: _digits,
+		_digits: !zeroes 32,
+		bin: 0,
+		res:0,
+		i:0,
+		t:0,
 	skipVars:
 
 	!var inf 2147483647
@@ -267,15 +386,36 @@ function _div()
 		neg(b)
 	else4:
 
-	//while a>=b
-	//sub a,b
-	//c++
+	toBin(a,digits)
+
+	set(ptr,digits)
+	set(i,#-30)
+	clear(bin)
+	clear(res)
+
+
+	//add digit to bin
+	//If bin>b inc res; bin-=b
+	//bin*=2
+	//res*=2
 
 	loop:
-	ifgte(a,b,else5)
-		sub(a,b)
-		inc(c)
-		jump(loop)
+		mul2(bin)
+	    mul2(res)
+	    memGet(ptr,t)
+	    inc(ptr)
+	    add(bin,t)
+	    ifgte(bin,b,sk)
+			inc(res)
+			sub(bin,b)
+	    sk:
+	subleq(#-1,i,loop)
+
+	set(c,res)
+	set(a,bin)
+
+
+
 	else5:
 
 	ifeq(neg1,p1,else7)
@@ -296,6 +436,7 @@ function _div()
  
 	jump(ret)
 }
+
 
 
 function max(a,b,c)

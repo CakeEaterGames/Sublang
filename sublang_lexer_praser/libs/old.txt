@@ -240,4 +240,75 @@ function _push()
 	jump(ret)
 }
 
+function _div()
+{
+	jump(skipVars)
+		ret: jump(0),
+		a: 0,
+		b: 0,
+		c: 0,
+		neg: 0,
+		neg1: 0,
+	skipVars:
+
+	!var inf 2147483647
+	!var _return1 0
+	!var _return2 0
+
+	clear(c)
+	clear(neg)
+	clear(neg1)
+
+	ifeq0(a,else1)
+		set(_return1,zero)
+		jump(else5)
+	else1:
+		
+	ifeq0(b,else2)
+		clear(a)
+		set(c,inf)
+		jump(else5)
+	else2:
+
+	iflt0(a,else3)
+		inc(neg)
+		inc(neg1)
+		neg(a)
+	else3:
+
+	iflt0(b,else4)
+		inc(neg)
+		neg(b)
+	else4:
+
+	//while a>=b
+	//sub a,b
+	//c++
+
+	loop:
+	ifgte(a,b,else5)
+		sub(a,b)
+		inc(c)
+		jump(loop)
+	else5:
+
+	ifeq(neg1,p1,else7)
+		clear(_return2)
+		sub(_return2,a)
+	jump(end7)
+	else7:
+		set(_return2,a)
+	end7:
+
+	ifeq(neg,p1,else6)
+		clear(_return1)
+		sub(_return1,c)
+		jump(ret)
+	else6:
+		set(_return1,c)
+		jump(ret)
+ 
+	jump(ret)
+}
+
  

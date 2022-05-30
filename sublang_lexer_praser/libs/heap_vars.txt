@@ -1,7 +1,7 @@
 ﻿pageSize: 10,
 heapPtr: heap_is_reserved, 
 heap_is_reserved: _heap_is_reserved,
-_heap_is_reserved: !zeroes 25,
+_heap_is_reserved: !zeroes 1000,
 
 heap: _heap,
-_heap: !zeroes 250,
+_heap: !zeroes 10000,

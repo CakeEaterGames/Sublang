@@ -271,3 +271,137 @@ function _clearArea()
 
 	jump(ret)
 }
+
+function fillArea(start,len,val)
+{
+	set(fillArea+5, cb)
+	set(fillArea+6, start)
+	set(fillArea+7, len)
+	set(fillArea+8, val)
+
+	jump(fillArea)
+	cb: comeback,
+	comeback:
+}
+
+function _fillArea()
+{
+	jump(skipVars)
+		ret: jump(0),
+		start: 0,
+		len: 0,
+		tval: 0,
+		val: 0,
+		i:0,
+	skipVars:
+	
+	clear(val)
+	sub(val,tval)
+
+	set(clearPart,start)
+	set(clearPart+1,start)
+	//set(setPart,val)
+	set(setPart+1,start)
+
+	clear(i)
+	sub(i,len)
+	inc(i)
+
+	loop:	
+		clearPart:
+		subleq(0,0)
+		setPart:
+		subleq(val,0)
+
+		inc(clearPart)
+		inc(clearPart+1)
+		inc(setPart+1)
+	incJump(i,loop)
+
+	jump(ret)
+}
+
+function newArray(len,out){
+	set(newArray+5, cb)
+	set(newArray+6, len)
+
+	jump(newArray)
+	cb: comeback,
+	comeback:
+	set(out,_return1)
+}
+
+function _newArray()
+{
+	jump(skipVars)
+		ret: jump(0),
+		len: 0,
+		loc: 0,
+	skipVars:
+
+	malloc(len,loc)
+	clearArea(loc,len)
+	set(_return1,loc)
+
+	jump(ret)
+}
+
+
+
+function arrayGet(arr,index,out){
+	set(arrayGet+5, cb)
+	set(arrayGet+6, arr)
+	set(arrayGet+7, index)
+
+	jump(arrayGet)
+	cb: comeback,
+	comeback:
+	set(out,_return1)
+}
+
+function _arrayGet()
+{
+	jump(skipVars)
+		ret: jump(0),
+		arr: 0,
+		index: 0,
+		ptr: 0,
+		val: 0,
+	skipVars:
+
+	add(arr,index,ptr)
+	memGet(ptr,val)
+	set(_return1,val)
+
+	jump(ret)
+}
+
+
+function arraySet(arr,index,val){
+	set(arraySet+5, cb)
+	set(arraySet+6, arr)
+	set(arraySet+7, index)
+	set(arraySet+8, val)
+
+
+	jump(arraySet)
+	cb: comeback,
+	comeback:
+
+}
+
+function _arraySet()
+{
+	jump(skipVars)
+		ret: jump(0),
+		arr: 0,
+		index: 0,
+		val: 0,
+		ptr: 0,
+	skipVars:
+
+	add(arr,index,ptr)
+	memSet(ptr,val)
+
+	jump(ret)
+}

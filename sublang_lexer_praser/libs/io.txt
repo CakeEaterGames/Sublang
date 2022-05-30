@@ -338,3 +338,16 @@ function _readLine()
 
 	jump(ret)
 }
+
+function endOfProgram()
+{
+	jump(skipVars)
+		str: _str,
+		_str: !stringz "End of program!\nPress any key to continue...\n",
+	skipVars:
+
+	writeStr(str)
+	read(temp)
+	jump(-1)
+
+}
