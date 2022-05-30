@@ -57,6 +57,8 @@
     <Content Include="Finished\multiplication.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="sublang video.txt" />
+    <Content Include="subleq game 2.txt" />
     <EmbeddedResource Include="Tutorial\3.txt" />
     <EmbeddedResource Include="Tutorial\4.txt" />
     <EmbeddedResource Include="Tutorial\5.txt" />
@@ -66,6 +68,9 @@
     <EmbeddedResource Include="Tutorial\2.txt" />
     <EmbeddedResource Include="Tutorial\1.txt" />
     <EmbeddedResource Include="help.txt" />
+    <Content Include="input - Copy.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="libs\functions.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

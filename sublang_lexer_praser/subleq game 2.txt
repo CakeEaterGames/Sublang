@@ -1,0 +1,90 @@
+space exploration game
+
+loop:
+	start on a planet
+	mine it's resourses
+	fight aliens if there are any
+	spend ore on upgrades
+	lift off
+	navigate though space
+	find another planet
+
+from the player's perspective autoamte:
+	planet cleaning (Kill all aliens, mine all ores, convert to fuel)
+	upgrade managment 
+	space searching (find another planet)
+	Threat analysys (Should I clear this planet or find a safer one (are aliens stealing my resourses faster than I'm mining new ones))
+	space searching horisontal (find similar planets)
+	space cleaning. Find all planets and clear them
+	
+goals:
+	find the center of the galaxy
+	visit every planet
+	buy all upgrades
+	mine all resourses on all planets
+	kill all aliens
+		
+resources:
+	orium   - on every planet in large quantity
+	rarium  - on some planets in small quantity
+	starium - on some planets in very small quantity
+
+upgrades:
+	tank   - ship can store X more fuel
+	cargo  - ship can store X more ore
+	drill  - drill can mine X more ore
+	fuel   - traveling takes less fuel
+	thrust - upgrade the maximum thruster speed
+	radar  - increase the visibility in space
+	gun    - you kill more aliens per action
+	
+
+planet actions:
+	scan      - tells information about the planet (chance of an attack, amount of ore)
+	mine X    - decrease planet's ore by X, increase your ore by X
+	fuel      - convert 10 ore into 1 fuel
+	upgrade X - converts ore and other resourses into permanent upgrades
+	fight     - kill n aliens
+	launch    - lift off to space
+	stats
+	help
+	
+space actions:
+	wsad     - fly in directions
+	thrust n - set the thrusters to different speed to fly more cells
+	scan     - gives coordinates for the nearest planet
+	land     - land on a planet
+	stats
+	help
+	
+	
+How to arganise memory?
+	a planets is a struct:
+		chunk,x,y,symbol,name(5 chars),ore1,ore2,ore3,aliens 
+	space is an array of planets sorted by chunk
+	
+to draw a view:
+	a view is an array n by n that will be printed on to the screen
+	clear that array
+	for top left corner of it, get the chunk that the corner is located in
+	for each planet in that chunk. If the coordinate is inside the screen rect, place it in the array
+	increase the point x value by chunk size
+	repeat
+	if point's pos is outside the rect reset it and increase the y value
+	repeat
+	if point's pos is outside the rect you are done
+	
+	
+	use binary search to find the planets in array by getting the current chunk of the ship
+	
+
+
+How to make this:
+	make a string file converter
+	generate a bunch of planets structures in other language
+	all of them are loacated in 4 chunks
+	
+	
+	
+	
+	

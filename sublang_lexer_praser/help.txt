@@ -1,6 +1,6 @@
 ﻿Compiles a Sublang program into Subleq code
 
-sublang.exe -i InputFilePath [-o OutputFilePath] [-p] [-c] [-r] [h [page]]
+sublang.exe -i InputFilePath [-o OutputFilePath] [-p] [-c] [-r [-t]] [h [page]]
 
 -h [page] prints pages of a tutorial on how to write programs in Sublang
 -i InputFilePath Read program from this file
@@ -8,6 +8,7 @@ sublang.exe -i InputFilePath [-o OutputFilePath] [-p] [-c] [-r] [h [page]]
 -c Compile the input file first
 -p Print the compiled code to the console
 -r Run the program
+-t Trace the program step by step
 
 Examples:
 

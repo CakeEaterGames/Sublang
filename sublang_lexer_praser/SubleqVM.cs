@@ -11,7 +11,7 @@ namespace Sublang
         public string inputProgram;
 
         public int pc = 0;
-        public List<int> cell;
+        public int[] cell;
 
         public Queue<int> inputs = new Queue<int>();
         public Queue<int> outputs = new Queue<int>();
@@ -20,6 +20,7 @@ namespace Sublang
         public bool done = false;
 
         public bool immedeateOutput = true;
+        public bool toTrace = false;
 
         public void SetProgram(string inp)
         {
@@ -36,7 +37,7 @@ namespace Sublang
         {
             //Log("Reset computer");
 
-            cell = inputProgram.Split(' ').Select(Int32.Parse).ToList();
+            cell = inputProgram.Split(' ').Select(Int32.Parse).ToArray();
 
             pc = 0;
             done = false;
@@ -50,7 +51,7 @@ namespace Sublang
             pause = false;
             while (!pause && !done)
             {
-                if (pc < 0 || cell.Count < pc + 3)
+                if (pc < 0 || cell.Length < pc + 3)
                 {
                     //Console.WriteLine("Program ended");
                     done = true;
@@ -60,6 +61,65 @@ namespace Sublang
                 int B = cell[pc + 0];
                 int A = cell[pc + 1];
                 int C = cell[pc + 2];
+
+                if (toTrace)
+                {
+                    StringBuilder tr = new StringBuilder();
+                    for (int i = 0; i < cell.Length; i++)
+                    {
+                        if (i == pc)
+                        {
+                            tr.Append("[");
+                        }
+                        if (i == A || i==B)
+                        {
+                            tr.Append("(");
+                        }
+                        tr.Append(cell[i] + " ");
+                        if (i == A || i == B)
+                        {
+                            tr.Append(")");
+                        }
+                        if (i == pc+2)
+                        {
+                            tr.Append("]");
+                        }
+
+                    }
+                    Console.WriteLine();
+                    if (A ==-1)
+                    {
+                        Console.WriteLine("Write mem[{0}] {1} ({2})", B, cell[B], (char)cell[B]);
+                    }
+                    else if (B == -1)
+                    {
+                        
+                    }
+                    else
+                    {
+                        Console.WriteLine("mem[{0}] = mem[{0}] - mem[{1}]", A, B);
+                        Console.WriteLine("mem[{0}] = {1} - {2} = {3}", A, cell[A], cell[B], cell[A] - cell[B]);
+                    }
+                    
+                    if (A==B)
+                    {
+                        Console.WriteLine("Clear cell "+A);
+                    }
+                    if (C!=pc+3)
+                    {
+                        if (A==B)
+                        {
+
+                            Console.WriteLine("jump to " + C);
+                        }
+                        else
+                        {
+                            Console.WriteLine("if <=0 jump to " + C);
+                        }
+                    }
+                    Console.WriteLine(tr);
+                    Console.ReadLine();
+                }
 
                 //Console.WriteLine("{0} {1} {2}", A, B, C);
                 

@@ -1,0 +1,308 @@
+﻿!include "libs/includes.txt"
+
+
+
+
+function printScreen(scr)
+{
+	jump(skipVars)
+		it:0,
+		i:0,
+		jt:0,
+		j:0,
+	skipVars:
+	
+	set(it,screenH)
+	clear(i)
+	sub(i,it)
+	inc(i)	
+
+	set(jt,screenW)
+	clear(j)
+	sub(j,jt)
+	inc(j)
+	
+	set(loop2,scr)
+
+	loop1:
+		clear(j)
+		sub(j,jt)
+		inc(j)
+		loop2:
+			subleq(0,-1)
+			inc(loop2)
+		incJump(j,loop2)
+		writeln()
+	incJump(i,loop1)
+	writeln()
+}
+
+function populateScreen()
+{
+	jump(skipVars)
+		it:0,
+		i:0,
+		r:0,
+		ndead:0,
+		nalive:0,
+	skipVars:
+
+	clear(ndead)
+	sub(ndead,dead)
+	clear(nalive)
+	sub(nalive,alive)
+
+	set(it,screenSize)
+	clear(i)
+	sub(i,it)
+	inc(i)
+
+	set(clearPart,screen)
+	set(clearPart+1,screen)
+ 
+	set(setPart1+1,screen)
+	set(setPart2+1,screen)
+
+
+	loop:	
+		clearPart:
+		subleq(0,0)
+
+		rngNext(#0,#100,r)
+		ifgt(r,#20,else)
+			setPart1:
+			subleq(ndead,0)
+		jump(endif)
+		else:
+			setPart2:
+			subleq(nalive,0)
+		endif:
+
+		inc(clearPart)
+		inc(clearPart+1)
+		inc(setPart1+1)
+		inc(setPart2+1)
+	incJump(i,loop)
+}
+
+function step()
+{
+	jump(skipVars)
+		i:0,
+		x:0,
+		y:0,
+		bx:0,
+		by:0,
+		ind:0,
+		a:0,
+		screen2:0,
+		cnt:0,
+	skipVars:
+
+	newArray(screenSize,screen2)
+	copyArea(screen,screenSize,screen2)
+	//printScreen(screen2)
+
+
+	clear(x)
+	clear(y)
+
+	loop1:
+		clear(x)
+		loop2:
+
+			set(bx,x)
+			set(by,y)
+			
+			xyToI(x,y,ind)
+			arrayGet(screen,ind,a)
+			countNeigh(x,y,cnt)
+			
+			set(x,bx)
+			set(y,by)
+
+			//arraySet(screen2,ind,a)
+			ifeq(a,alive,deadc)
+				//Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+				iflt(cnt,#2,sk2)
+					arraySet(screen2,ind,dead)
+				sk2:
+				
+				//Any live cell with more than three live neighbours dies, as if by overpopulation.
+				ifgt(cnt,#3,sk3)
+					arraySet(screen2,ind,dead)
+				sk3:
+
+			jump(sk)
+			deadc:
+				//Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+				ifeq(cnt,#3,sk1)
+					arraySet(screen2,ind,alive)
+				sk1:
+			sk:
+
+
+			inc(x)
+		jlt(x,screenW,loop2)
+	
+		inc(y)
+	jlt(y,screenH,loop1)
+	
+	
+
+	copyArea(screen2,screenSize,screen)
+
+	free(screen2)
+
+}
+
+function bound(a,max)
+{
+	iflt(a,#0,skip1)
+	add(a,max)
+	skip1:
+
+	ifgte(a,max,skip2)
+	sub(a,max)
+	skip2:
+}
+
+function iToxy(i,x,y)
+{
+	div(i,screenW,y,x)
+}
+
+function xyToI(x,y,i)
+{
+	bound(x,screenW)
+	bound(y,screenH)
+	set(i,y)
+	mul(i,screenW)
+	add(i,x)
+}
+
+function incIfAlive(x,y,cnt)
+{	
+	!var cntTemp 0
+	!var cntTemp2 0
+
+	xyToI(x,y,cntTemp)
+	arrayGet(screen,cntTemp,cntTemp2)
+	ifeq(cntTemp2,alive,skip)
+		inc(cnt)
+	skip:
+}
+
+function countNeigh(x,y,cnt)
+{
+	clear(cnt)
+	dec(x)
+	incIfAlive(x,y,cnt)
+	dec(y)
+	incIfAlive(x,y,cnt)
+	inc(x)
+	incIfAlive(x,y,cnt)
+	inc(x)
+	incIfAlive(x,y,cnt)
+	inc(y)
+	incIfAlive(x,y,cnt)
+	inc(y)
+	incIfAlive(x,y,cnt)
+	dec(x)
+	incIfAlive(x,y,cnt)
+	dec(x)
+	incIfAlive(x,y,cnt)
+	//inc(x)
+	//dec(y)
+
+}
+
+
+function main()
+{
+	jump(skipFuncs)
+		writeInt:  _writeInt(),
+		writeStr:  _writeStr(),
+		writeBin:  _writeBin(),
+		toBin:     _toBin(),
+		mul:       _mul(),
+		div:       _div(),
+//		geti:      _geti(),
+//		seti:      _seti(),
+		memGet:    _memGet(),
+		memSet:    _memSet(),
+		rngNext:   _rngNext(),
+		rngNext2:  _rngNext2(),
+		copyArea:  _copyArea(),
+		clearArea: _clearArea(),
+		fillArea:  _fillArea(),
+//		readLine:  _readLine(),
+		malloc:    _malloc(),
+		free:      _free(),
+		newArray:  _newArray(),
+		arrayGet:  _arrayGet(),
+		arraySet:  _arraySet(),
+	skipFuncs:
+	
+
+
+	
+	!var screenW 50
+	!var screenH 30
+	!var screenSize 0
+	
+	writelnStr(WPrompt)
+	readInt(screenW)
+	writelnStr(HPrompt)
+	readInt(screenH)
+
+	mul(screenW,screenH,screenSize)
+
+	writelnStr(seedPrompt)         //Ask the user for simulation seed
+
+	!var seed 0
+	readInt(seed)                  //Read a number
+	rngSeed(seed)                  //Set the random number generator
+
+	!var screen 0
+	newArray(screenSize,screen)          //create a screen array
+	//fillArea(screen,screenSize,dead)     //and fill it with '.' (dead cell)
+ 
+	populateScreen()                     //Fill the screen with dead or alive cells
+
+
+    //arraySet(screen,#2,alive)
+	//arraySet(screen,#10,alive)
+	//arraySet(screen,#12,alive)
+	//arraySet(screen,#21,alive)
+	//arraySet(screen,#22,alive)
+
+
+	loop:
+		printScreen(screen)
+		step()
+		read(temp)
+	jump(loop)
+
+
+
+
+
+
+	endOfProgram()
+	
+	!vars_location
+	
+	alive: !string "@",
+	dead: !string ".",
+	WPrompt: _WPrompt, _WPrompt:           !stringz "Please enter grid width",
+	HPrompt: _HPrompt, _HPrompt:           !stringz "Please enter grid height",
+	seedPrompt: _seedPrompt, _seedPrompt:  !stringz "Please enter a seed number",
+
+	!include "libs/input_buffer.txt"
+	!include "libs/heap_vars.txt"
+ 
+//	_stack: _mainStack,
+//	_mainStack: 0,
+//	!zeroes 250
+} 

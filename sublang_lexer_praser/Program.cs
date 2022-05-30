@@ -15,6 +15,7 @@ namespace Sublang
         static bool toRun = false;
         static bool toCompile = false;
         static bool toPrint = false;
+        static bool toTrace = false;
         static string inputFilePath = "";
         static string outputFilePath = "";
 
@@ -34,11 +35,12 @@ namespace Sublang
 
 
 #if DEBUG
-                 toRun = true;
-                 toCompile = true;
-                 toPrint = false;
-                 inputFilePath = "input.txt";
-                 outputFilePath = "output.txt";
+                toRun = true;
+                toCompile = true;
+                toPrint = false;
+                toTrace = false;
+                inputFilePath = "input.txt";
+                outputFilePath = "output.txt";
 
 
 #else
@@ -61,6 +63,9 @@ namespace Sublang
                             break;
                         case "-r":
                             toRun = true;
+                            break;
+                        case "-t":
+                            toTrace = true;
                             break;
                         case "-i":
                             inputFilePath = args[i + 1];
@@ -110,7 +115,7 @@ namespace Sublang
 
 
             Program p = new Program();
-            
+            //Console.ReadLine(  );
 
             
         }
@@ -207,6 +212,7 @@ namespace Sublang
             if (toRun)
             {
                 VM vm = new VM();
+                vm.toTrace = toTrace;
 
                 vm.SetProgram(compiled);
                 vm.Init();
@@ -219,10 +225,10 @@ namespace Sublang
                     {
                         outp.Append((char)vm.outputs.Dequeue());
                     }
-                    /*
-                    Console.CursorLeft = 0;
-                    Console.CursorTop = 0;
-                    */
+                    
+                    //Console.CursorLeft = 0;
+                    //Console.CursorTop = 0;
+                    
                     Console.Write(outp);
 
                     if (vm.done) break;

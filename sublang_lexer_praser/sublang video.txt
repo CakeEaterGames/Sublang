@@ -1,0 +1,226 @@
+Subleq and sublang demonstration
+
+Hi, I want to show you a neat thing I've been working on
+But for everything to make sense I first need to tell you what subleq is
+
+If you've done a bit of programming you probably know how a program is structured
+a program is a series of commands.
+different languages have different sets of commands
+there are things like
+
+variable assignments
+like
+var a = 10
+
+or mathematical operations
+line
+b = a+10
+or 
+a/=10
+
+There are loops
+like 
+while (true)
+	print "Hello world"
+and a lot more
+
+```
+var a = 10
+b = a+10
+a/=10
+while True:
+	print "Hello world"
+```
+
+And while those instructions are quite usefull, almost all of them can be just thrown away
+What if I tell you, that you can write any program with just one single instruction?
+and that instruction is "Subleq"
+
+```
+subleq(a, b, c)
+
+mem[b] = mem[b] - mem[a]
+if(mem[b] <= 0):
+	goto c
+```
+Subleq stands for
+
+(Su)btract
+and (b)runch
+if (l)ess than
+or (eq)ual to 0
+
+subleq(a,b,c) means 
+subtract value stored in cell a
+from cell b
+
+basically b-=a
+
+and after that 
+if b <= 0 goto c
+otherwise go to the next instruction
+
+
+basically a programm written in subleq looks like this 
+
+subleq(a, b, c)
+subleq(a, b, c)
+subleq(a, b, c)
+subleq(a, b, c)
+subleq(a, b, c)
+subleq(a, b, c)
+
+where a b c are just numbers
+in fact
+since the entire program is just subleq over and over again
+we can remove the text and only leave the numbers
+
+12 12 3
+36 37 6
+37 12 9
+37 37 12
+0 -1 15
+38 36 18
+12 12 21
+53 37 24
+37 12 27
+37 37 30
+36 12 -1
+37 37 0
+39 0 -1
+72 101 108
+108 111 44
+32 87 111
+114 108 100
+33 10 53
+
+This is a "Hello World" program written in Subleq from the esolang.org wiki
+You might think that this code is pretty unreadable,
+and yeah, you are right :D It would be quite hard to understand what a subleq programm does
+Here are a few other examples
+Here's a program that shows the game of life
+It asks the user for some numbers and boom, here's game of life step by step in ascii from
+
+Here's another example
+What if instead of printing hello world
+we print something more interesting
+How about an etire bad apple music video
+
+'Bad apple plays'
+
+By this point you're probably wondering how does it all work if there is only one instruction in this languages
+so let's write a couple of simple subleq programs together
+and it will get much clearer
+
+And now we get to the point of the video
+I've made a tool that lets you write subleq programs much aesier
+
+here's an empty program
+
+function main()
+{
+
+}
+
+we can just writing our mess of numbers here and it will turn into a working subleq program
+if we just copy paste the hello world example from earlier it will print hello world
+
+function main()
+{
+	12, 12, 3,
+	36, 37, 6,
+	37, 12, 9,
+	37, 37, 12,
+	0, -1, 15,
+	38, 36, 18,
+	12, 12, 21,
+	53, 37, 24,
+	37, 12, 27,
+	37, 37, 30,
+	36, 12, -1,
+	37, 37, 0,
+	39, 0, -1,
+	72, 101, 108,
+	108, 111, 44,
+	32, 87, 111,
+	114, 108, 100,
+	33, 10, 53
+}
+
+we do need to add commas unfortunately
+if we compile and run it with the tool that I've made. it will print "hello world"
+
+now let's write something ourselves
+The whole point of this tool is to make it so that we don't have to write with unreadable numbers anymore
+
+first let's define a few functions
+
+
+
+function subleq(a,b,c)
+{
+	a,b,c
+}
+function main()
+{
+
+}
+
+Instead of writing numbers I prefer to write in like normal functions call
+much clearer 
+but there is still a small problem. 
+Sometimes when we subtract one value from another the result will be 0 or less
+and that means we have to jump to C
+but what is we don't want to.
+in that case we need to set C to the next instruction 
+so that no matter weather or not b-a<=0 or not we would go to the next instruction
+
+function subleq(a,b,c)
+{
+	a,b,c
+}
+function main()
+{
+	subleq(a,b,3)
+	subleq(a,b,6)
+	subleq(a,b,9)
+	subleq(a,b,12)
+}
+
+if we write it by hand it gets quite unreadable again
+what if we need to incert another instruction in between
+we would have to rewrite all numbers again
+instead let's use one of the features of this program
+"?" is a variable that always points to it's location in the code
+meanin if we were to write a program like
+
+function subleq(a,b,c)
+{
+	a,b,c
+}
+function main()
+{
+	?,?,?,?
+}
+
+it would compile to 0 1 2 3
+and if we use it in our subleq function
+
+function subleq(a,b,c)
+{
+	a,b,c
+}
+function subleq(a,b)
+{
+	a,b,?+1
+}
+function main()
+{
+	
+}
+
+we would now have a function that just subtracts a from b
+we turned subleq into just sub
+
+
+
