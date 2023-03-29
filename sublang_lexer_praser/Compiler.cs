@@ -62,6 +62,13 @@ namespace Sublang
         varsLocation,
         zeroesDef,
         constVarDef,
+        binAnd,
+        binOr,
+        binXor,
+        shiftLeft,
+        shiftRight,
+        binaryNumber,
+        hexNumber,
     }
 
     //A group of tokens that all exist in one cell of the final program 
@@ -81,6 +88,11 @@ namespace Sublang
                 case TokenType.mul:
                 case TokenType.div:
                 case TokenType.mod:
+                case TokenType.shiftLeft:
+                case TokenType.shiftRight:
+                case TokenType.binOr:
+                case TokenType.binXor:
+                case TokenType.binAnd:
                 case TokenType.openr:
                 case TokenType.closer:
                 case TokenType.pointerNext:
@@ -136,7 +148,7 @@ namespace Sublang
                             maxD = depth;
                         }
                     }
-                    else if (Tokens[i].Type == TokenType.closec)
+                    else if (Tokens[i].Type == TokenType.closer)
                     {
                         if (depth >= maxD)
                         {
@@ -165,12 +177,85 @@ namespace Sublang
         }
         int SimplifyGroup(int start, int end)
         {
+            //Console.WriteLine(start);
+            //Console.WriteLine(end);
+            //Console.WriteLine(String.Join("\n",Tokens));
             //first replace all a*b
             //etc
 
-
             for (int i = start; i <= end; i++)
             {
+                if (Tokens[i].Type == TokenType.binAnd)
+                {
+                    int a = int.Parse(Tokens[i - 1].Value);
+                    int b = int.Parse(Tokens[i + 1].Value);
+                    int res = a & b;
+                    Tokens.RemoveAt(i - 1);
+                    Tokens.RemoveAt(i - 1);
+                    Tokens.RemoveAt(i - 1);
+                    Tokens.Insert(i - 1, new Token(res + "", TokenType.number, 0, 0));
+                    end -= 2;
+                    i--;
+                }
+            }
+            for (int i = start; i <= end; i++)
+            {
+                if (Tokens[i].Type == TokenType.binOr)
+                {
+                    int a = int.Parse(Tokens[i - 1].Value);
+                    int b = int.Parse(Tokens[i + 1].Value);
+                    int res = a | b;
+                    Tokens.RemoveAt(i - 1);
+                    Tokens.RemoveAt(i - 1);
+                    Tokens.RemoveAt(i - 1);
+                    Tokens.Insert(i - 1, new Token(res + "", TokenType.number, 0, 0));
+                    end -= 2;
+                    i--;
+                }
+                else if (Tokens[i].Type == TokenType.binXor)
+                {
+                    int a = int.Parse(Tokens[i - 1].Value);
+                    int b = int.Parse(Tokens[i + 1].Value);
+                    int res = a ^ b;
+                    Tokens.RemoveAt(i - 1);
+                    Tokens.RemoveAt(i - 1);
+                    Tokens.RemoveAt(i - 1);
+                    Tokens.Insert(i - 1, new Token(res + "", TokenType.number, 0, 0));
+                    end -= 2;
+                    i--;
+                }
+                 
+            }
+            for (int i = start; i <= end; i++)
+            {
+                if (Tokens[i].Type == TokenType.shiftLeft)
+                {
+                    int a = int.Parse(Tokens[i - 1].Value);
+                    int b = int.Parse(Tokens[i + 1].Value);
+                    int res = a << b;
+                    Tokens.RemoveAt(i - 1);
+                    Tokens.RemoveAt(i - 1);
+                    Tokens.RemoveAt(i - 1);
+                    Tokens.Insert(i - 1, new Token(res + "", TokenType.number, 0, 0));
+                    end -= 2;
+                    i--;
+                }
+                else if (Tokens[i].Type == TokenType.shiftRight)
+                {
+                    int a = int.Parse(Tokens[i - 1].Value);
+                    int b = int.Parse(Tokens[i + 1].Value);
+                    int res = a >> b;
+                    Tokens.RemoveAt(i - 1);
+                    Tokens.RemoveAt(i - 1);
+                    Tokens.RemoveAt(i - 1);
+                    Tokens.Insert(i - 1, new Token(res + "", TokenType.number, 0, 0));
+                    end -= 2;
+                    i--;
+                }
+            }
+            for (int i = start; i <= end; i++)
+            {
+
                 if (Tokens[i].Type == TokenType.mul)
                 {
                     int a = int.Parse(Tokens[i - 1].Value);
@@ -194,6 +279,19 @@ namespace Sublang
                     Tokens.Insert(i - 1, new Token(res + "", TokenType.number, 0, 0));
                     end -= 2;
                     i--;
+                    
+                }
+                else if (Tokens[i].Type == TokenType.mod)
+                {
+                    int a = int.Parse(Tokens[i - 1].Value);
+                    int b = int.Parse(Tokens[i + 1].Value);
+                    int res = a % b;
+                    Tokens.RemoveAt(i - 1);
+                    Tokens.RemoveAt(i - 1);
+                    Tokens.RemoveAt(i - 1);
+                    Tokens.Insert(i - 1, new Token(res + "", TokenType.number, 0, 0));
+                    end -= 2;
+                    i--;
                 }
             }
             for (int i = start; i <= end; i++)
@@ -210,8 +308,7 @@ namespace Sublang
                     end -= 2;
                     i--;
                 }
-                else
-                if (Tokens[i].Type == TokenType.plus)
+                else if (Tokens[i].Type == TokenType.plus)
                 {
                     int a = int.Parse(Tokens[i - 1].Value);
                     int b = int.Parse(Tokens[i + 1].Value);
@@ -670,6 +767,13 @@ namespace Sublang
                         case TokenType.mul:
                         case TokenType.div:
                         case TokenType.mod:
+
+                        case TokenType.shiftLeft:
+                        case TokenType.shiftRight:
+                        case TokenType.binOr:
+                        case TokenType.binXor:
+                        case TokenType.binAnd:
+
                         case TokenType.openr:
                         case TokenType.closer:
                         //case TokenType.constVarDef:

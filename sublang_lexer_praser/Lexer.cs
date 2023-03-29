@@ -100,9 +100,22 @@ namespace Sublang
                         case TokenType.str:
                             TokenContents = TokenContents.Replace("\"", "");
                             TokenContents = TokenContents.Replace("\\n", "\n");
-
+                            break;
+                        case TokenType.binaryNumber:
+                            TokenContents = TokenContents.Replace("0b", "");
+                            var num = Convert.ToInt32(TokenContents, 2);
+                            TokenContents = num + "";
+                            CurToken = TokenType.number;
+                            break;
+                        case TokenType.hexNumber:
+                            TokenContents = TokenContents.Replace("0x", "");
+                            var numH = Convert.ToInt32(TokenContents, 16);
+                            TokenContents = numH + "";
+                            CurToken = TokenType.number;
                             break;
 
+
+                            
                     }
 
 

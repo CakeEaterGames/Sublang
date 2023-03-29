@@ -1,25 +1,24 @@
-﻿!include "libs/includes.txt"
+﻿ 
 
-function subleq(a,b,c)
+function opcode(instruction, a, b, c, value)
 {
-	a,b,c,
+	//one instruction is 5 bits long
+	//abc are 4 bit long
+	//value is 19 bits long
+
+	(instruction << 27) | (a << 23) | (c << 19) | b | (value & 0b1111111111111111111 )
 }
-function subleq(a,b)
-{
-	a,b,?+1,
+
+function addi(a,value) {
+	opcode(0b00101, a, 0, a, value)
+}
+
+function inc(r) {
+	addi(r, 1)
 }
 
 function main()
 {
-	loop:
-	subleq(str,-1)
-	subleq(#0,str,-1)
-	subleq(#-1,loop)
-	subleq(#-1,loop+4)
-	subleq(#0,#0,loop)
-
-
-	!vars_location
-	str: !stringz "hi",
-	
+	inc(1)
+	//returns 00101 0001 0001 000000000000000 0001
 } 

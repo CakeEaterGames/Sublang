@@ -135,6 +135,9 @@ namespace Sublang
  
                 //new TokenDefinition(@"function\s+([A-Za-z_@]+[A-Za-z0-9_@]*)\s*\(", TokenType.functionDef),
                 new TokenDefinition(@"function\s+", TokenType.functionDef),
+                new TokenDefinition(@"def\s+", TokenType.functionDef),
+                new TokenDefinition(@"macro\s+", TokenType.functionDef),
+
                 new TokenDefinition(@"!define\s+", TokenType.define),
 
                 new TokenDefinition(@"!vars_location\s*", TokenType.varsLocation),
@@ -151,11 +154,33 @@ namespace Sublang
 
                 new TokenDefinition(@"#", TokenType.constVarDef),
 
+                new TokenDefinition(@"0b[0-1]+", TokenType.binaryNumber),
+                new TokenDefinition(@"0x[0-9a-fA-F]+", TokenType.hexNumber),
                 new TokenDefinition(@"\d+", TokenType.number),
+  
+
                 new TokenDefinition(@"\+", TokenType.plus),
                 new TokenDefinition(@"\-", TokenType.minus),
                 new TokenDefinition(@"\*", TokenType.mul),
                 new TokenDefinition(@"\/", TokenType.div),
+
+                new TokenDefinition(@"\&", TokenType.binAnd),
+                new TokenDefinition(@"\|", TokenType.binOr),
+                new TokenDefinition(@"\^", TokenType.binXor),
+                new TokenDefinition(@"\<\<", TokenType.shiftLeft),
+                new TokenDefinition(@"\>\>", TokenType.shiftRight),
+                new TokenDefinition(@"\%", TokenType.mod),
+                
+                /*
+                 
+                 %
+                &
+                |
+                ^
+                <<
+                >>
+
+                 */
 
                 new TokenDefinition(@"\?\+1", TokenType.pointerNext),
                 new TokenDefinition(@"\?", TokenType.pointer),
@@ -177,7 +202,9 @@ namespace Sublang
                 Lexer l = new Lexer(r, defs);
 
                 Compiler comp = new Compiler();
+                //Console.WriteLine(String.Join("\n", l.GetAllTokens()));
                 comp.Init(l.GetAllTokens());
+
                 compiled = comp.result.ToString();
 
                 if (outputFilePath != "")
@@ -201,6 +228,10 @@ namespace Sublang
             {
                 Console.WriteLine(compiled);
             }
+
+
+            Console.WriteLine(compiled);
+            Console.ReadLine();
             /*
             while (true)
             {
