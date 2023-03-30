@@ -1,4 +1,4 @@
-﻿Here's an example of a simple Sublang program that prints "Hello World" 3 times
+﻿Here's an example of a simple Sublang program that compiles into Subleq prints "Hello World" 3 times
 It is a little bit intentionally over engineered to demonstrate all commonly used features
 
 Input:

@@ -1,7 +1,8 @@
 ﻿This is a brief tutorial on how to use Sublang.
-Before trying to use Sublang I highly recomend to read the esolang wiki page on subleq
-and maybe look up a few youtube tutorials on subleq
 
-https://esolangs.org/wiki/Subleq
-https://www.youtube.com/watch?v=jRZDnetjGuo
-https://www.youtube.com/watch?v=FvwcRaE9yxc
+It was originally designed to work with an esoteric programming language called Subleq
+But then turned into a full general purpose macro assembler
+Created by Ruslan Taranov (CakeEaterGames)
+
+To contunue use -h 2
+ 

@@ -886,10 +886,11 @@ namespace Sublang
 
             //Step 4
             //Collect the final string result   
+            result.Append("#");
             foreach (var n in main.code)
             {
                 result.Append(n.Tokens[0].Value);
-                result.Append(" ");
+                result.Append(";\n");
             }
             //Console.WriteLine(result);
         }

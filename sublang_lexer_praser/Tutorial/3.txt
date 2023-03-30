@@ -31,6 +31,11 @@ Output:
   0 1 2
 
 Arithmetic operators can be used to change cell values before compilation
++ - * / %
+>> <<
+& | ^
+
+Numbers can be also represented in binary (0b000111) and hexadecimal (0xFF) formats 
 
 Input:
   function main()

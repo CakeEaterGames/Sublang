@@ -13,7 +13,7 @@ namespace Sublang
     class Program
     {
         static bool toRun = false;
-        static bool toCompile = false;
+        static bool toCompile = true;
         static bool toPrint = false;
         static bool toTrace = false;
         static string inputFilePath = "";
@@ -86,7 +86,13 @@ namespace Sublang
                                 StreamReader reader = new StreamReader(stream);
                                 string result = reader.ReadToEnd();
                                 reader.Close();
+                                Console.WriteLine("===============================================");
+                                Console.WriteLine("===============================================");
+                                Console.WriteLine();
                                 Console.WriteLine(result);
+                                Console.WriteLine();
+                                Console.WriteLine("===============================================");
+                                Console.WriteLine("===============================================");
                                 return;
                             }
                             else
@@ -230,8 +236,6 @@ namespace Sublang
             }
 
 
-            Console.WriteLine(compiled);
-            Console.ReadLine();
             /*
             while (true)
             {
