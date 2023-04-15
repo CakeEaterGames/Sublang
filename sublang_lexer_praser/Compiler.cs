@@ -673,10 +673,15 @@ namespace Sublang
                     if (labels.ContainsKey(cur))
                     {
                         code[i].Tokens.RemoveAt(j);
+                        
+                        //this goes in reverse. That's how it suppose to be
+                        code[i].Tokens.Insert(j, new Token(")", TokenType.closer, 0, 0));
 
-                        code[i].Tokens.Insert(j, new Token((labels[cur] - i) + "", TokenType.number, 0, 0));
-                        code[i].Tokens.Insert(j, new Token("+", TokenType.plus, 0, 0));
                         code[i].Tokens.Insert(j, new Token("?", TokenType.pointer, 0, 0));
+                        code[i].Tokens.Insert(j, new Token("+", TokenType.plus, 0, 0));
+                        code[i].Tokens.Insert(j, new Token((labels[cur] - i) + "", TokenType.number, 0, 0));
+
+                        code[i].Tokens.Insert(j, new Token("(", TokenType.openr, 0, 0));
                     }
 
                 }
